@@ -20,6 +20,12 @@ export default function TabsLayout() {
           title: "Home",
         }}
       />
+      <Tabs.Screen
+        name="squad"
+        options={{
+          title: "My Squad",
+        }}
+      />
     </Tabs>
   );
 }

@@ -15,9 +15,17 @@ export function useHome() {
     });
   };
 
+  const totalPlayers = squad.length;
+
+  const totalPriceSquad = squad.reduce((total, player) => {
+    return total + player.price;
+  }, 0);
+
   return {
     players,
     squad,
     handleAddPlayer,
+    totalPlayers,
+    totalPriceSquad,
   };
 }

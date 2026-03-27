@@ -8,9 +8,14 @@ import { Player } from "../../types/player";
 type PlayerCardProps = {
   player: Player;
   onAdd?: (player: Player) => void;
+  isAdded?: boolean;
 };
 
-export function PlayerCard({ player, onAdd }: PlayerCardProps) {
+export function PlayerCard({
+  player,
+  onAdd,
+  isAdded = false,
+}: PlayerCardProps) {
   return (
     <View style={styles.card}>
       <Image source={{ uri: player.image }} style={styles.image} />
@@ -24,8 +29,12 @@ export function PlayerCard({ player, onAdd }: PlayerCardProps) {
         <Text style={styles.price}>€ {player.price}M</Text>
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => onAdd?.(player)}>
-        <Text style={styles.buttonText}>Add</Text>
+      <TouchableOpacity
+        style={[styles.button, isAdded && styles.buttonDisabled]}
+        onPress={() => onAdd?.(player)}
+        disabled={isAdded}
+      >
+        <Text style={styles.buttonText}>{isAdded ? "Added " : "Add"}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -76,5 +85,8 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.text,
     fontWeight: "600",
+  },
+  buttonDisabled: {
+    backgroundColor: colors.surfaceLight,
   },
 });

@@ -1,26 +1,43 @@
 import { PlayerCard } from "@/src/components/squad/PlayerCard";
 import { useHome } from "@/src/hooks/screens/useHome";
 import { colors } from "@/src/theme/colors";
+import { radius } from "@/src/theme/radius";
 import { spacing } from "@/src/theme/spacing";
 import { typography } from "@/src/theme/typography";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
-  const { players, handleAddPlayer } = useHome();
+  const { players, handleAddPlayer, squad, totalPlayers, totalPriceSquad } =
+    useHome();
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <Text style={styles.title}>Available Players</Text>
-        <Text style={styles.subtitle}>Build your dream squad</Text>
+        <Text style={styles.subtitle}>Build your squad</Text>
+
+        <View style={styles.summaryCard}>
+          <Text style={styles.summaryTitle}>Squad Summary</Text>
+          <Text style={styles.summaryText}>Total Players: {totalPlayers}</Text>
+          <Text style={styles.summaryText}>
+            Total Squad Value: € {totalPriceSquad}M
+          </Text>
+        </View>
 
         <FlatList
           data={players}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <PlayerCard player={item} onAdd={handleAddPlayer} />
-          )}
+          renderItem={({ item }) => {
+            const isAdded = squad.some((player) => player.id === item.id);
+            return (
+              <PlayerCard
+                player={item}
+                onAdd={handleAddPlayer}
+                isAdded={isAdded}
+              />
+            );
+          }}
           contentContainerStyle={styles.listContent}
           showsVerticalScrollIndicator={false}
         />
@@ -49,6 +66,24 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.textSecondary,
     marginBottom: spacing.lg,
+  },
+  summaryCard: {
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    marginBottom: spacing.lg,
+  },
+  summaryTitle: {
+    ...typography.subtitle,
+    color: colors.text,
+    marginBottom: spacing.sm,
+  },
+  summaryText: {
+    ...typography.body,
+    color: colors.textSecondary,
+    marginBottom: spacing.xs,
   },
   listContent: {
     paddingBottom: spacing.xl,
