@@ -1,5 +1,5 @@
 import { PlayerCard } from "@/src/components/squad/PlayerCard";
-import { useHome } from "@/src/hooks/screens/useHome";
+import { useSquadStore } from "@/src/store/squadStore";
 import { colors } from "@/src/theme/colors";
 import { spacing } from "@/src/theme/spacing";
 import { typography } from "@/src/theme/typography";
@@ -7,7 +7,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SquadScreen() {
-  const { squad } = useHome();
+  const squad = useSquadStore((state) => state.squad);
 
   return (
     <SafeAreaView style={styles.safeArea}>

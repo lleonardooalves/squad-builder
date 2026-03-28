@@ -1,19 +1,13 @@
+import { useSquadStore } from "@/src/store/squadStore";
 import { useState } from "react";
 import { mockPlayers } from "../../data/mockPlayers";
 import { Player } from "../../types/player";
 
 export function useHome() {
   const [players] = useState<Player[]>(mockPlayers);
-  const [squad, setSquad] = useState<Player[]>([]);
 
-  const handleAddPlayer = (player: Player) => {
-    setSquad((prev) => {
-      const exists = prev.find((p) => p.id === player.id);
-      if (exists) return prev;
-
-      return [...prev, player];
-    });
-  };
+  const squad = useSquadStore((state) => state.squad);
+  const addPlayer = useSquadStore((state) => state.addPlayer);
 
   const totalPlayers = squad.length;
 
@@ -24,7 +18,7 @@ export function useHome() {
   return {
     players,
     squad,
-    handleAddPlayer,
+    handleAddPlayer: addPlayer,
     totalPlayers,
     totalPriceSquad,
   };
