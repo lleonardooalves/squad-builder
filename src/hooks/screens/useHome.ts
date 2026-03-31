@@ -8,6 +8,7 @@ export function useHome() {
 
   const squad = useSquadStore((state) => state.squad);
   const addPlayer = useSquadStore((state) => state.addPlayer);
+  const removePlayer = useSquadStore((state) => state.removePlayer);
 
   const totalPlayers = squad.length;
 
@@ -19,6 +20,7 @@ export function useHome() {
     players,
     squad,
     handleAddPlayer: addPlayer,
+    handleRemovePlayer: removePlayer,
     totalPlayers,
     totalPriceSquad,
   };

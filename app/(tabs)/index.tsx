@@ -14,15 +14,30 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text style={styles.title}>Available Players</Text>
-        <Text style={styles.subtitle}>Build your squad</Text>
+        <View style={styles.header}>
+          <Text style={styles.eyebrow}>SQUAD BUILDER</Text>
+          <Text style={styles.title}>Available Players</Text>
+          <Text style={styles.subtitle}>
+            Build your dream team with the best players available
+          </Text>
+        </View>
 
         <View style={styles.summaryCard}>
           <Text style={styles.summaryTitle}>Squad Summary</Text>
-          <Text style={styles.summaryText}>Total Players: {totalPlayers}</Text>
-          <Text style={styles.summaryText}>
-            Total Squad Value: € {totalPriceSquad}M
-          </Text>
+
+          <View style={styles.summaryRow}>
+            <View style={styles.summaryItem}>
+              <Text style={styles.summaryValue}>{totalPlayers}</Text>
+              <Text style={styles.summaryLabel}>Players</Text>
+            </View>
+
+            <View style={styles.summaryDivider} />
+
+            <View style={styles.summaryItem}>
+              <Text style={styles.summaryValue}>€ {totalPriceSquad}M</Text>
+              <Text style={styles.summaryLabel}>Total Value</Text>
+            </View>
+          </View>
         </View>
 
         <FlatList
@@ -57,16 +72,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
     paddingTop: spacing.lg,
   },
-  title: {
-    ...typography.title,
-    color: colors.text,
-    marginBottom: spacing.xs,
-  },
-  subtitle: {
-    ...typography.body,
-    color: colors.textSecondary,
-    marginBottom: spacing.lg,
-  },
   summaryCard: {
     backgroundColor: colors.surface,
     borderWidth: 1,
@@ -87,5 +92,57 @@ const styles = StyleSheet.create({
   },
   listContent: {
     paddingBottom: spacing.xl,
+  },
+  summaryRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  summaryItem: {
+    flex: 1,
+    alignItems: "center",
+  },
+
+  summaryValue: {
+    ...typography.title,
+    color: colors.text,
+    fontWeight: "700",
+    marginBottom: 4,
+  },
+
+  summaryLabel: {
+    ...typography.body,
+    color: colors.textSecondary,
+  },
+
+  summaryDivider: {
+    width: 1,
+    height: 40,
+    backgroundColor: colors.border,
+  },
+  header: {
+    marginBottom: spacing.lg,
+  },
+
+  eyebrow: {
+    ...typography.body,
+    color: colors.primary,
+    marginBottom: spacing.xs,
+    fontWeight: "700",
+    letterSpacing: 1,
+  },
+
+  title: {
+    ...typography.title,
+    color: colors.text,
+    marginBottom: spacing.xs,
+    fontWeight: "700",
+  },
+
+  subtitle: {
+    ...typography.body,
+    color: colors.textSecondary,
+    lineHeight: 20,
   },
 });

@@ -8,6 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SquadScreen() {
   const squad = useSquadStore((state) => state.squad);
+  const removePlayer = useSquadStore((state) => state.removePlayer);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -19,7 +20,9 @@ export default function SquadScreen() {
           <FlatList
             data={squad}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <PlayerCard player={item} isAdded />}
+            renderItem={({ item }) => (
+              <PlayerCard player={item} onRemove={removePlayer} />
+            )}
           />
         )}
       </View>

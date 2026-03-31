@@ -4,6 +4,7 @@ import { Player } from "../types/player";
 type SquadStore = {
   squad: Player[];
   addPlayer: (player: Player) => void;
+  removePlayer: (id: string) => void;
 };
 
 export const useSquadStore = create<SquadStore>((set) => ({
@@ -20,4 +21,8 @@ export const useSquadStore = create<SquadStore>((set) => ({
         squad: [...state.squad, player],
       };
     }),
+  removePlayer: (id) =>
+    set((state) => ({
+      squad: state.squad.filter((p) => p.id !== id),
+    })),
 }));
