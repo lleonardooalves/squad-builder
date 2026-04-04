@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../theme/colors";
@@ -22,7 +23,16 @@ export function PlayerCard({
   const [imageError, setImageError] = useState(false);
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() =>
+        router.push({
+          pathname: "/player/[id]",
+          params: { id: player.id },
+        })
+      }
+      activeOpacity={0.8}
+    >
       {imageError ? (
         <View style={styles.imagePlaceholder}>
           <Text>👤</Text>
@@ -82,7 +92,7 @@ export function PlayerCard({
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
