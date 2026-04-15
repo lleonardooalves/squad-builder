@@ -1,50 +1,119 @@
-# Welcome to your Expo app 👋
+# ⚽ Squad Builder
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile app built with **React Native + Expo** that allows users to build their own football squad by selecting players and managing total squad value.
 
-## Get started
+---
 
-1. Install dependencies
+## 📱 About the Project
 
-   ```bash
-   npm install
-   ```
+**Squad Builder** is a mobile application developed as part of my transition into **Mobile Development with React Native**.
 
-2. Start the app
+The app simulates a simplified team management experience where users can browse players, add them to their squad, and track total value and composition.
 
-   ```bash
-   npx expo start
-   ```
+This project focuses on clean architecture, reusable components, and real-world mobile development practices.
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🚀 Features
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- Browse available players
+- Add players to your squad
+- Remove players from your squad
+- View squad summary (total players & total value)
+- Player details screen
+- Empty state handling
+- Image fallback handling
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## 🛠️ Tech Stack
 
-```bash
-npm run reset-project
-```
+- **React Native**
+- **Expo**
+- **TypeScript**
+- **Expo Router**
+- **Zustand** (global state management)
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## 📂 Project Structure
 
-To learn more about developing your project with Expo, look at the following resources:
+app/
+(tabs)/
+index.tsx
+my-squad.tsx
+player/
+[id].tsx
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+src/
+components/
+data/
+hooks/
+store/
+theme/
+types/
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## 📸 Screenshots
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+<p align="center">
+  <img src="./assets/screenshots/Home.png" width="220" />
+  <img src="./assets/screenshots/SquadEmpty.png" width="220" />
+  <img src="./assets/screenshots/Squad.png" width="220" />
+  <img src="./assets/screenshots/PlayerDetails.png" width="220" />
+</p>
+
+---
+
+## ⚙️ Getting Started
+
+### 1. Clone the repository
+
+git clone https://github.com/lleonardooalves/squad-builder.git
+
+### 2. Navigate to the project
+
+cd squad-builder
+
+### 3. Install dependencies
+
+npm install
+
+### 4. Run the project
+
+npx expo start
+
+---
+
+## 📲 Running on Device
+
+- Expo Go (iOS or Android)
+- iOS Simulator
+- Android Emulator
+
+---
+
+## 🎯 Learning Goals
+
+- React Native fundamentals
+- Mobile UI/UX design
+- State management with Zustand
+- Navigation with Expo Router
+- Scalable project structure
+- Component reusability
+
+---
+
+## 🔮 Future Improvements
+
+- Persist squad data
+- Search and filter players
+- UI improvements and animations
+- API integration
+
+---
+
+## 👨‍💻 Author
+
+Developed by Leonardo Alves
