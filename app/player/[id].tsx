@@ -24,7 +24,7 @@ export default function PlayerScreen() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
-          <Text style={styles.title}>Player not found</Text>
+          <Text style={styles.name}>Player not found</Text>
         </View>
       </SafeAreaView>
     );
@@ -36,33 +36,45 @@ export default function PlayerScreen() {
         <View style={styles.header}>
           <Text style={styles.eyebrow}>SQUAD BUILDER</Text>
 
-          <View style={styles.titleRow}>
-            <TouchableOpacity
-              style={styles.homeButton}
-              onPress={() => router.navigate("/")}
-              activeOpacity={0.8}
-            >
-              <Ionicons name="home" size={18} color={colors.text} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.card}>
-            {imageError ? (
-              <View style={styles.imagePlaceholder}>
-                <Text>👤</Text>
-              </View>
-            ) : (
-              <Image
-                source={{ uri: player.image }}
-                style={styles.image}
-                onError={() => setImageError(true)}
-              />
-            )}
-            <Text style={styles.name}>{player.name}</Text>
-            <Text style={styles.team}>{player.team}</Text>
-            <Text style={styles.meta}>{player.position}</Text>
-            <View style={styles.ratingBadge}>
-              <Text style={styles.ratingText}>{player.rating}</Text>
+          <TouchableOpacity
+            style={styles.homeButton}
+            onPress={() => router.navigate("/")}
+            activeOpacity={0.8}
+          >
+            <Ionicons name="home" size={18} color={colors.text} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.card}>
+          {imageError ? (
+            <View style={styles.imagePlaceholder}>
+              <Text style={styles.placeholderText}>👤</Text>
             </View>
+          ) : (
+            <Image
+              source={{ uri: player.image }}
+              style={styles.image}
+              onError={() => setImageError(true)}
+            />
+          )}
+
+          <Text style={styles.name}>{player.name}</Text>
+          <Text style={styles.team}>{player.team}</Text>
+
+          <View style={styles.infoRow}>
+            <View style={styles.infoBadge}>
+              <Text style={styles.infoLabel}>Position</Text>
+              <Text style={styles.infoValue}>{player.position}</Text>
+            </View>
+
+            <View style={styles.infoBadge}>
+              <Text style={styles.infoLabel}>Value</Text>
+              <Text style={styles.infoValue}>€ {player.price}M</Text>
+            </View>
+          </View>
+
+          <View style={styles.ratingBadge}>
+            <Text style={styles.ratingText}>{player.rating}</Text>
           </View>
         </View>
       </View>
@@ -75,18 +87,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  titleRow: {
+
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.lg,
+  },
+
+  header: {
     flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  title: {
-    ...typography.title,
-    color: colors.text,
-    marginBottom: spacing.xs,
+
+  eyebrow: {
+    ...typography.body,
+    color: colors.primary,
     fontWeight: "700",
-    marginTop: spacing.md,
+    letterSpacing: 1,
   },
+
   homeButton: {
     width: 36,
     height: 36,
@@ -97,57 +118,88 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-    paddingHorizontal: spacing.md,
-    paddingTop: spacing.lg,
-  },
 
-  header: {
-    marginBottom: spacing.lg,
-  },
-  eyebrow: {
-    ...typography.body,
-    color: colors.primary,
-    marginBottom: spacing.xs,
-    fontWeight: "700",
-    letterSpacing: 1,
-  },
-  imagePlaceholder: {
-    width: 78,
-    height: 78,
-    borderRadius: radius.md,
-    backgroundColor: colors.surfaceLight,
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: spacing.md,
-  },
-  image: {
-    width: 250,
-    height: 250,
-    borderRadius: radius.md,
-    marginRight: spacing.md,
-  },
-  imageContainer: {
-    marginTop: spacing.lg,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   card: {
-    marginTop: spacing.lg,
+    marginTop: spacing.md,
     alignItems: "center",
-    flexDirection: "column",
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     padding: spacing.lg,
     borderWidth: 1,
     borderColor: colors.border,
-    marginBottom: spacing.md,
   },
+
+  image: {
+    width: 220,
+    height: 220,
+    borderRadius: radius.lg,
+    marginBottom: spacing.lg,
+  },
+
+  imagePlaceholder: {
+    width: 220,
+    height: 220,
+    borderRadius: radius.lg,
+    backgroundColor: colors.surfaceLight,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: spacing.lg,
+  },
+
+  placeholderText: {
+    fontSize: 40,
+  },
+
+  name: {
+    ...typography.title,
+    color: colors.text,
+    fontWeight: "700",
+    textAlign: "center",
+    marginBottom: spacing.sm,
+  },
+
+  team: {
+    ...typography.body,
+    color: colors.textSecondary,
+    marginBottom: spacing.lg,
+    textAlign: "center",
+  },
+
+  infoRow: {
+    flexDirection: "row",
+    width: "100%",
+    gap: spacing.sm,
+    marginBottom: spacing.lg,
+  },
+
+  infoBadge: {
+    flex: 1,
+    backgroundColor: colors.background,
+    borderRadius: radius.md,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: "center",
+  },
+
+  infoLabel: {
+    ...typography.body,
+    color: colors.textSecondary,
+    marginBottom: 2,
+    fontSize: 12,
+    opacity: 0.8,
+  },
+
+  infoValue: {
+    ...typography.body,
+    color: colors.text,
+    fontWeight: "700",
+  },
+
   ratingBadge: {
-    minWidth: 72,
-    height: 72,
+    minWidth: 80,
+    height: 80,
     borderRadius: 999,
     backgroundColor: colors.warning,
     alignItems: "center",
@@ -159,28 +211,5 @@ const styles = StyleSheet.create({
     ...typography.title,
     color: colors.text,
     fontWeight: "700",
-  },
-
-  name: {
-    ...typography.subtitle,
-    color: colors.text,
-    marginBottom: 4,
-    fontWeight: "700",
-  },
-
-  team: {
-    ...typography.body,
-    color: colors.text,
-    marginBottom: 2,
-  },
-
-  meta: {
-    ...typography.body,
-    color: colors.textSecondary,
-  },
-
-  content: {
-    flex: 1,
-    justifyContent: "space-between",
   },
 });
