@@ -56,10 +56,10 @@ types/
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="./assets/screenshots/Home.png" width="220" />
-  <img src="./assets/screenshots/SquadEmpty.png" width="220" />
-  <img src="./assets/screenshots/Squad.png" width="220" />
-  <img src="./assets/screenshots/PlayerDetails.png" width="220" />
+  <img src="./assets/screenshots/Home.PNG" width="220" />
+  <img src="./assets/screenshots/SquadEmpty.PNG" width="220" />
+  <img src="./assets/screenshots/Squad.PNG" width="220" />
+  <img src="./assets/screenshots/PlayerDetails.PNG" width="220" />
 </p>
 
 ---
