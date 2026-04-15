@@ -6,8 +6,6 @@ A mobile app built with **React Native + Expo** that allows users to build their
 
 ## 📱 About the Project
 
-**Squad Builder** is a mobile application developed as part of my transition into **Mobile Development with React Native**.
-
 The app simulates a simplified team management experience where users can browse players, add them to their squad, and track total value and composition.
 
 This project focuses on clean architecture, reusable components, and real-world mobile development practices.
