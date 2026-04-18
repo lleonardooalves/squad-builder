@@ -6,6 +6,7 @@ import { spacing } from "@/src/theme/spacing";
 import { typography } from "@/src/theme/typography";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { MotiView } from "moti";
 import {
   FlatList,
   StyleSheet,
@@ -25,71 +26,78 @@ export default function SquadScreen() {
   const isEmpty = totalPlayers === 0;
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.eyebrow}>SQUAD BUILDER</Text>
+    <MotiView
+      from={{ opacity: 0, translateY: 10 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ type: "timing", duration: 250 }}
+      style={{ flex: 1 }}
+    >
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.eyebrow}>SQUAD BUILDER</Text>
 
-          <View style={styles.titleRow}>
-            <Text style={styles.title}>My Squad</Text>
+            <View style={styles.titleRow}>
+              <Text style={styles.title}>My Squad</Text>
 
-            <TouchableOpacity
-              style={styles.homeButton}
-              onPress={() => router.navigate("/")}
-              activeOpacity={0.8}
-            >
-              <Ionicons name="home" size={18} color={colors.text} />
-            </TouchableOpacity>
-          </View>
-
-          <Text style={styles.subtitle}>
-            Manage your selected players and build a balanced team
-          </Text>
-        </View>
-
-        <View style={styles.summaryCard}>
-          <Text style={styles.summaryTitle}>Squad Summary</Text>
-
-          <View style={styles.summaryRow}>
-            <View style={styles.summaryItem}>
-              <Text style={styles.summaryValue}>{totalPlayers}</Text>
-              <Text style={styles.summaryLabel}>Players</Text>
+              <TouchableOpacity
+                style={styles.homeButton}
+                onPress={() => router.navigate("/")}
+                activeOpacity={0.8}
+              >
+                <Ionicons name="home" size={18} color={colors.text} />
+              </TouchableOpacity>
             </View>
 
-            <View style={styles.summaryDivider} />
-
-            <View style={styles.summaryItem}>
-              <Text style={styles.summaryValue}>€ {totalValue}M</Text>
-              <Text style={styles.summaryLabel}>Total Value</Text>
-            </View>
-          </View>
-        </View>
-
-        {isEmpty ? (
-          <View style={styles.emptyCard}>
-            <View style={styles.emptyIconWrapper}>
-              <Text style={styles.emptyIcon}>⚽</Text>
-            </View>
-
-            <Text style={styles.emptyTitle}>Your squad is empty</Text>
-            <Text style={styles.emptyDescription}>
-              Go to the Home tab and add players to start building your dream
-              team.
+            <Text style={styles.subtitle}>
+              Manage your selected players and build a balanced team
             </Text>
           </View>
-        ) : (
-          <FlatList
-            data={squad}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <PlayerCard player={item} onRemove={removePlayer} />
-            )}
-            contentContainerStyle={styles.listContent}
-            showsVerticalScrollIndicator={false}
-          />
-        )}
-      </View>
-    </SafeAreaView>
+
+          <View style={styles.summaryCard}>
+            <Text style={styles.summaryTitle}>Squad Summary</Text>
+
+            <View style={styles.summaryRow}>
+              <View style={styles.summaryItem}>
+                <Text style={styles.summaryValue}>{totalPlayers}</Text>
+                <Text style={styles.summaryLabel}>Players</Text>
+              </View>
+
+              <View style={styles.summaryDivider} />
+
+              <View style={styles.summaryItem}>
+                <Text style={styles.summaryValue}>€ {totalValue}M</Text>
+                <Text style={styles.summaryLabel}>Total Value</Text>
+              </View>
+            </View>
+          </View>
+
+          {isEmpty ? (
+            <View style={styles.emptyCard}>
+              <View style={styles.emptyIconWrapper}>
+                <Text style={styles.emptyIcon}>⚽</Text>
+              </View>
+
+              <Text style={styles.emptyTitle}>Your squad is empty</Text>
+              <Text style={styles.emptyDescription}>
+                Go to the Home tab and add players to start building your dream
+                team.
+              </Text>
+            </View>
+          ) : (
+            <FlatList
+              data={squad}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <PlayerCard player={item} onRemove={removePlayer} />
+              )}
+              contentContainerStyle={styles.listContent}
+              showsVerticalScrollIndicator={false}
+            />
+          )}
+        </View>
+      </SafeAreaView>
+    </MotiView>
   );
 }
 

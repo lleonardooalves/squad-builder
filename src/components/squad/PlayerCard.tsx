@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { MotiView } from "moti";
 import { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../theme/colors";
@@ -23,76 +24,97 @@ export function PlayerCard({
   const [imageError, setImageError] = useState(false);
 
   return (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() =>
-        router.push({
-          pathname: "/player/[id]",
-          params: { id: player.id },
-        })
-      }
-      activeOpacity={0.8}
+    <MotiView
+      from={{ opacity: 0, translateY: 20 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ type: "spring" }}
     >
-      {imageError ? (
-        <View style={styles.imagePlaceholder}>
-          <Text>👤</Text>
-        </View>
-      ) : (
-        <Image
-          source={{ uri: player.image }}
-          style={styles.image}
-          onError={() => setImageError(true)}
-        />
-      )}
-      <View style={styles.content}>
-        <View style={styles.topRow}>
-          <View style={styles.info}>
-            <Text style={styles.name} numberOfLines={1}>
-              {player.name}
-            </Text>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() =>
+          router.push({
+            pathname: "/player/[id]",
+            params: { id: player.id },
+          })
+        }
+        activeOpacity={0.8}
+      >
+        {imageError ? (
+          <View style={styles.imagePlaceholder}>
+            <Text>👤</Text>
+          </View>
+        ) : (
+          <Image
+            source={{ uri: player.image }}
+            style={styles.image}
+            onError={() => setImageError(true)}
+          />
+        )}
+        <View style={styles.content}>
+          <View style={styles.topRow}>
+            <View style={styles.info}>
+              <Text style={styles.name} numberOfLines={1}>
+                {player.name}
+              </Text>
 
-            <Text style={styles.team} numberOfLines={1}>
-              {player.team}
-            </Text>
+              <Text style={styles.team} numberOfLines={1}>
+                {player.team}
+              </Text>
 
-            <Text style={styles.meta}>{player.position}</Text>
+              <Text style={styles.meta}>{player.position}</Text>
+            </View>
+
+            <View style={styles.ratingWrapper}>
+              <MotiView
+                from={{ scale: 1, opacity: 0.25 }}
+                animate={{ scale: 1.15, opacity: 0.1 }}
+                transition={{
+                  type: "timing",
+                  duration: 1200,
+                  loop: true,
+                }}
+                style={styles.ratingGlow}
+              />
+
+              <View style={styles.ratingBadge}>
+                <Text style={styles.ratingText}>{player.rating}</Text>
+              </View>
+            </View>
           </View>
 
-          <View style={styles.ratingBadge}>
-            <Text style={styles.ratingText}>{player.rating}</Text>
+          <View style={styles.bottomRow}>
+            <Text style={styles.price}>€ {player.price}M</Text>
+
+            <View style={styles.actions}>
+              {onAdd && (
+                <MotiView animate={{ scale: isAdded ? 0.95 : 1 }}>
+                  <TouchableOpacity
+                    style={[styles.button, isAdded && styles.buttonDisabled]}
+                    onPress={() => onAdd(player)}
+                    disabled={isAdded}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.buttonText}>
+                      {isAdded ? "Added" : "Add"}
+                    </Text>
+                  </TouchableOpacity>
+                </MotiView>
+              )}
+
+              {onRemove && (
+                <TouchableOpacity
+                  style={[styles.button, styles.buttonRemove]}
+                  onPress={() => onRemove(player.id)}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.buttonText}>Remove</Text>
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
         </View>
-
-        <View style={styles.bottomRow}>
-          <Text style={styles.price}>€ {player.price}M</Text>
-
-          <View style={styles.actions}>
-            {onAdd && (
-              <TouchableOpacity
-                style={[styles.button, isAdded && styles.buttonDisabled]}
-                onPress={() => onAdd(player)}
-                disabled={isAdded}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.buttonText}>
-                  {isAdded ? "Added" : "Add"}
-                </Text>
-              </TouchableOpacity>
-            )}
-
-            {onRemove && (
-              <TouchableOpacity
-                style={[styles.button, styles.buttonRemove]}
-                onPress={() => onRemove(player.id)}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.buttonText}>Remove</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </MotiView>
   );
 }
 
@@ -151,19 +173,18 @@ const styles = StyleSheet.create({
   },
 
   ratingBadge: {
-    minWidth: 42,
-    height: 42,
-    borderRadius: 999,
-    backgroundColor: colors.warning,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: spacing.sm,
+    backgroundColor: "#F4A300",
   },
 
   ratingText: {
-    ...typography.body,
-    color: colors.text,
+    fontSize: 22,
     fontWeight: "700",
+    color: "#FFF",
   },
 
   bottomRow: {
@@ -215,5 +236,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginRight: spacing.md,
+  },
+  ratingWrapper: {
+    width: 64,
+    height: 64,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  ratingGlow: {
+    position: "absolute",
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: "#F4A300",
   },
 });

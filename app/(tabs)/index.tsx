@@ -4,6 +4,7 @@ import { colors } from "@/src/theme/colors";
 import { radius } from "@/src/theme/radius";
 import { spacing } from "@/src/theme/spacing";
 import { typography } from "@/src/theme/typography";
+import { MotiView } from "moti";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -12,52 +13,59 @@ export default function HomeScreen() {
     useHome();
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.eyebrow}>SQUAD BUILDER</Text>
-          <Text style={styles.title}>Available Players</Text>
-          <Text style={styles.subtitle}>
-            Build your dream team with the best players available
-          </Text>
-        </View>
+    <MotiView
+      from={{ opacity: 0, translateY: 10 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ type: "timing", duration: 250 }}
+      style={{ flex: 1 }}
+    >
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.eyebrow}>SQUAD BUILDER</Text>
+            <Text style={styles.title}>Available Players</Text>
+            <Text style={styles.subtitle}>
+              Build your dream team with the best players available
+            </Text>
+          </View>
 
-        <View style={styles.summaryCard}>
-          <Text style={styles.summaryTitle}>Squad Summary</Text>
+          <View style={styles.summaryCard}>
+            <Text style={styles.summaryTitle}>Squad Summary</Text>
 
-          <View style={styles.summaryRow}>
-            <View style={styles.summaryItem}>
-              <Text style={styles.summaryValue}>{totalPlayers}</Text>
-              <Text style={styles.summaryLabel}>Players</Text>
-            </View>
+            <View style={styles.summaryRow}>
+              <View style={styles.summaryItem}>
+                <Text style={styles.summaryValue}>{totalPlayers}</Text>
+                <Text style={styles.summaryLabel}>Players</Text>
+              </View>
 
-            <View style={styles.summaryDivider} />
+              <View style={styles.summaryDivider} />
 
-            <View style={styles.summaryItem}>
-              <Text style={styles.summaryValue}>€ {totalPriceSquad}M</Text>
-              <Text style={styles.summaryLabel}>Total Value</Text>
+              <View style={styles.summaryItem}>
+                <Text style={styles.summaryValue}>€ {totalPriceSquad}M</Text>
+                <Text style={styles.summaryLabel}>Total Value</Text>
+              </View>
             </View>
           </View>
-        </View>
 
-        <FlatList
-          data={players}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
-            const isAdded = squad.some((player) => player.id === item.id);
-            return (
-              <PlayerCard
-                player={item}
-                onAdd={handleAddPlayer}
-                isAdded={isAdded}
-              />
-            );
-          }}
-          contentContainerStyle={styles.listContent}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
-    </SafeAreaView>
+          <FlatList
+            data={players}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => {
+              const isAdded = squad.some((player) => player.id === item.id);
+              return (
+                <PlayerCard
+                  player={item}
+                  onAdd={handleAddPlayer}
+                  isAdded={isAdded}
+                />
+              );
+            }}
+            contentContainerStyle={styles.listContent}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      </SafeAreaView>
+    </MotiView>
   );
 }
 
