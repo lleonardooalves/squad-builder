@@ -1,7 +1,7 @@
-import { useSquadStore } from "@/src/store/squadStore";
-import { useState } from "react";
-import { mockPlayers } from "../../data/mockPlayers";
-import { Player } from "../../types/player";
+import { useSquadStore } from '@/src/store/squadStore';
+import { useState } from 'react';
+import { mockPlayers } from '../../data/mockPlayers';
+import { Player } from '../../types/player';
 
 export function useHome() {
   const [players] = useState<Player[]>(mockPlayers);

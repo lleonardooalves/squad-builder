@@ -1,18 +1,15 @@
-import { colors } from "@/src/theme/colors";
-import { radius } from "@/src/theme/radius";
-import { spacing } from "@/src/theme/spacing";
-import { typography } from "@/src/theme/typography";
-import { StyleSheet, Text, View } from "react-native";
+import { colors } from '@/src/theme/colors';
+import { radius } from '@/src/theme/radius';
+import { spacing } from '@/src/theme/spacing';
+import { typography } from '@/src/theme/typography';
+import { StyleSheet, Text, View } from 'react-native';
 
 type SummaryCardProps = {
   totalPlayers: number;
   totalPriceSquad: number;
 };
 
-export default function SummaryCard({
-  totalPlayers,
-  totalPriceSquad,
-}: SummaryCardProps) {
+export default function SummaryCard({ totalPlayers, totalPriceSquad }: SummaryCardProps) {
   return (
     <View style={styles.summaryCard}>
       <Text style={styles.summaryTitle}>Squad Summary</Text>
@@ -54,20 +51,20 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xs,
   },
   summaryRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   summaryItem: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
 
   summaryValue: {
     ...typography.title,
     color: colors.text,
-    fontWeight: "700",
+    fontWeight: '700',
     marginBottom: 4,
   },
 

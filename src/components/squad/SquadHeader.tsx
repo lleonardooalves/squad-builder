@@ -1,9 +1,9 @@
-import { colors } from "@/src/theme/colors";
-import { spacing } from "@/src/theme/spacing";
-import { typography } from "@/src/theme/typography";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { colors } from '@/src/theme/colors';
+import { spacing } from '@/src/theme/spacing';
+import { typography } from '@/src/theme/typography';
+import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function SquadHeader() {
   return (
@@ -15,16 +15,14 @@ export default function SquadHeader() {
 
         <TouchableOpacity
           style={styles.homeButton}
-          onPress={() => router.navigate("/")}
+          onPress={() => router.navigate('/')}
           activeOpacity={0.8}
         >
           <Ionicons name="home" size={18} color={colors.text} />
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.subtitle}>
-        Manage your selected players and build a balanced team
-      </Text>
+      <Text style={styles.subtitle}>Manage your selected players and build a balanced team</Text>
     </View>
   );
 }
@@ -38,7 +36,7 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.primary,
     marginBottom: spacing.xs,
-    fontWeight: "700",
+    fontWeight: '700',
     letterSpacing: 1,
   },
 
@@ -46,7 +44,7 @@ const styles = StyleSheet.create({
     ...typography.title,
     color: colors.text,
     marginBottom: spacing.xs,
-    fontWeight: "700",
+    fontWeight: '700',
   },
 
   subtitle: {
@@ -62,13 +60,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   titleRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });

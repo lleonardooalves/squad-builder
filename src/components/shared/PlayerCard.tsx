@@ -1,12 +1,12 @@
-import { router } from "expo-router";
-import { MotiView } from "moti";
-import { useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { colors } from "../../theme/colors";
-import { radius } from "../../theme/radius";
-import { spacing } from "../../theme/spacing";
-import { typography } from "../../theme/typography";
-import { Player } from "../../types/player";
+import { router } from 'expo-router';
+import { MotiView } from 'moti';
+import { useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { colors } from '../../theme/colors';
+import { radius } from '../../theme/radius';
+import { spacing } from '../../theme/spacing';
+import { typography } from '../../theme/typography';
+import { Player } from '../../types/player';
 
 type PlayerCardProps = {
   player: Player;
@@ -15,25 +15,20 @@ type PlayerCardProps = {
   isAdded?: boolean;
 };
 
-export function PlayerCard({
-  player,
-  onAdd,
-  onRemove,
-  isAdded = false,
-}: PlayerCardProps) {
+export function PlayerCard({ player, onAdd, onRemove, isAdded = false }: PlayerCardProps) {
   const [imageError, setImageError] = useState(false);
 
   return (
     <MotiView
       from={{ opacity: 0, translateY: 20 }}
       animate={{ opacity: 1, translateY: 0 }}
-      transition={{ type: "spring" }}
+      transition={{ type: 'spring' }}
     >
       <TouchableOpacity
         style={styles.card}
         onPress={() =>
           router.push({
-            pathname: "/player/[id]",
+            pathname: '/player/[id]',
             params: { id: player.id },
           })
         }
@@ -69,7 +64,7 @@ export function PlayerCard({
                 from={{ scale: 1, opacity: 0.25 }}
                 animate={{ scale: 1.15, opacity: 0.1 }}
                 transition={{
-                  type: "timing",
+                  type: 'timing',
                   duration: 1200,
                   loop: true,
                 }}
@@ -94,9 +89,7 @@ export function PlayerCard({
                     disabled={isAdded}
                     activeOpacity={0.8}
                   >
-                    <Text style={styles.buttonText}>
-                      {isAdded ? "Added" : "Add"}
-                    </Text>
+                    <Text style={styles.buttonText}>{isAdded ? 'Added' : 'Add'}</Text>
                   </TouchableOpacity>
                 </MotiView>
               )}
@@ -120,8 +113,8 @@ export function PlayerCard({
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: "row",
-    alignItems: "flex-start",
+    flexDirection: 'row',
+    alignItems: 'flex-start',
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     padding: spacing.md,
@@ -139,13 +132,13 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
 
   topRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
     marginBottom: spacing.md,
   },
 
@@ -158,7 +151,7 @@ const styles = StyleSheet.create({
     ...typography.subtitle,
     color: colors.text,
     marginBottom: 4,
-    fontWeight: "700",
+    fontWeight: '700',
   },
 
   team: {
@@ -176,33 +169,33 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#F4A300",
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F4A300',
   },
 
   ratingText: {
     fontSize: 22,
-    fontWeight: "700",
-    color: "#FFF",
+    fontWeight: '700',
+    color: '#FFF',
   },
 
   bottomRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     gap: spacing.sm,
   },
 
   price: {
     ...typography.body,
     color: colors.primary,
-    fontWeight: "700",
+    fontWeight: '700',
     fontSize: 16,
   },
 
   actions: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: spacing.sm,
   },
 
@@ -212,13 +205,13 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
     borderRadius: radius.md,
     minWidth: 72,
-    alignItems: "center",
+    alignItems: 'center',
   },
 
   buttonText: {
     ...typography.body,
     color: colors.text,
-    fontWeight: "600",
+    fontWeight: '600',
   },
 
   buttonDisabled: {
@@ -233,22 +226,22 @@ const styles = StyleSheet.create({
     height: 78,
     borderRadius: radius.md,
     backgroundColor: colors.surfaceLight,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginRight: spacing.md,
   },
   ratingWrapper: {
     width: 64,
     height: 64,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   ratingGlow: {
-    position: "absolute",
+    position: 'absolute',
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: "#F4A300",
+    backgroundColor: '#F4A300',
   },
 });

@@ -1,6 +1,6 @@
-import { colors } from "@/src/theme/colors";
-import { Ionicons } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
+import { colors } from '@/src/theme/colors';
+import { Ionicons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
 
 export default function TabsLayout() {
   return (
@@ -8,7 +8,7 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: true,
-        animation: "shift",
+        animation: 'shift',
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopColor: colors.border,
@@ -21,20 +21,16 @@ export default function TabsLayout() {
         tabBarInactiveTintColor: colors.textSecondary,
         tabBarLabelStyle: {
           fontSize: 12,
-          fontWeight: "600",
+          fontWeight: '600',
         },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "home" : "home-outline"}
-              size={20}
-              color={color}
-            />
+            <Ionicons name={focused ? 'home' : 'home-outline'} size={20} color={color} />
           ),
         }}
       />
@@ -42,10 +38,10 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="squad"
         options={{
-          title: "My Squad",
+          title: 'My Squad',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "people-circle" : "people-circle-outline"}
+              name={focused ? 'people-circle' : 'people-circle-outline'}
               size={22}
               color={color}
             />

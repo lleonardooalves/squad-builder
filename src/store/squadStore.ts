@@ -1,7 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
-import { Player } from "../types/player";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import { Player } from '../types/player';
 
 type SquadStore = {
   squad: Player[];
@@ -31,7 +31,7 @@ export const useSquadStore = create<SquadStore>()(
         })),
     }),
     {
-      name: "squad-storage",
+      name: 'squad-storage',
       storage: createJSONStorage(() => AsyncStorage),
     },
   ),

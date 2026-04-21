@@ -1,13 +1,13 @@
-import { mockPlayers } from "@/src/data/mockPlayers";
-import { colors } from "@/src/theme/colors";
-import { radius } from "@/src/theme/radius";
-import { spacing } from "@/src/theme/spacing";
-import { typography } from "@/src/theme/typography";
-import { Ionicons } from "@expo/vector-icons";
-import { router, useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { mockPlayers } from '@/src/data/mockPlayers';
+import { colors } from '@/src/theme/colors';
+import { radius } from '@/src/theme/radius';
+import { spacing } from '@/src/theme/spacing';
+import { typography } from '@/src/theme/typography';
+import { Ionicons } from '@expo/vector-icons';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function PlayerScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -38,7 +38,7 @@ export default function PlayerScreen() {
 
           <TouchableOpacity
             style={styles.homeButton}
-            onPress={() => router.navigate("/")}
+            onPress={() => router.navigate('/')}
             activeOpacity={0.8}
           >
             <Ionicons name="home" size={18} color={colors.text} />
@@ -96,15 +96,15 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   eyebrow: {
     ...typography.body,
     color: colors.primary,
-    fontWeight: "700",
+    fontWeight: '700',
     letterSpacing: 1,
   },
 
@@ -115,13 +115,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   card: {
     marginTop: spacing.md,
-    alignItems: "center",
+    alignItems: 'center',
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     padding: spacing.lg,
@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
     height: 220,
     borderRadius: radius.lg,
     backgroundColor: colors.surfaceLight,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: spacing.lg,
   },
 
@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
   name: {
     ...typography.title,
     color: colors.text,
-    fontWeight: "700",
-    textAlign: "center",
+    fontWeight: '700',
+    textAlign: 'center',
     marginBottom: spacing.sm,
   },
 
@@ -162,12 +162,12 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.textSecondary,
     marginBottom: spacing.lg,
-    textAlign: "center",
+    textAlign: 'center',
   },
 
   infoRow: {
-    flexDirection: "row",
-    width: "100%",
+    flexDirection: 'row',
+    width: '100%',
     gap: spacing.sm,
     marginBottom: spacing.lg,
   },
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
     borderWidth: 1,
     borderColor: colors.border,
-    alignItems: "center",
+    alignItems: 'center',
   },
 
   infoLabel: {
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   infoValue: {
     ...typography.body,
     color: colors.text,
-    fontWeight: "700",
+    fontWeight: '700',
   },
 
   ratingBadge: {
@@ -202,14 +202,14 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 999,
     backgroundColor: colors.warning,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: spacing.sm,
   },
 
   ratingText: {
     ...typography.title,
     color: colors.text,
-    fontWeight: "700",
+    fontWeight: '700',
   },
 });

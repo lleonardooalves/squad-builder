@@ -1,7 +1,7 @@
-import { spacing } from "@/src/theme/spacing";
-import { Player } from "@/src/types/player";
-import { FlatList, StyleSheet } from "react-native";
-import { PlayerCard } from "./PlayerCard";
+import { spacing } from '@/src/theme/spacing';
+import { Player } from '@/src/types/player';
+import { FlatList, StyleSheet } from 'react-native';
+import { PlayerCard } from './PlayerCard';
 
 type PlayersListProps = {
   data: Player[];

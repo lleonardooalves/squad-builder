@@ -1,4 +1,4 @@
-export type PlayerPosition = "GK" | "DEF" | "MID" | "ATT";
+export type PlayerPosition = 'GK' | 'DEF' | 'MID' | 'ATT';
 
 export type Player = {
   id: string;

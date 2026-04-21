@@ -1,8 +1,8 @@
-import { colors } from "@/src/theme/colors";
-import { radius } from "@/src/theme/radius";
-import { spacing } from "@/src/theme/spacing";
-import { typography } from "@/src/theme/typography";
-import { StyleSheet, Text, View } from "react-native";
+import { colors } from '@/src/theme/colors';
+import { radius } from '@/src/theme/radius';
+import { spacing } from '@/src/theme/spacing';
+import { typography } from '@/src/theme/typography';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function EmptyCard() {
   return (
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     borderRadius: radius.lg,
     padding: spacing.xl,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: spacing.md,
   },
 
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: 32,
     backgroundColor: colors.surfaceLight,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: spacing.md,
   },
 
@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
     ...typography.subtitle,
     color: colors.text,
     marginBottom: spacing.sm,
-    fontWeight: "700",
+    fontWeight: '700',
   },
 
   emptyDescription: {
     ...typography.body,
     color: colors.textSecondary,
-    textAlign: "center",
+    textAlign: 'center',
     lineHeight: 20,
   },
 });

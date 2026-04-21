@@ -1,8 +1,8 @@
-import { colors } from "@/src/theme/colors";
-import { radius } from "@/src/theme/radius";
-import { spacing } from "@/src/theme/spacing";
-import { typography } from "@/src/theme/typography";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { colors } from '@/src/theme/colors';
+import { radius } from '@/src/theme/radius';
+import { spacing } from '@/src/theme/spacing';
+import { typography } from '@/src/theme/typography';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 type PlayersFilterProps = {
   selectedPosition: string;
@@ -16,16 +16,13 @@ export default function PlayersFilter({
   return (
     <View style={styles.filterContainer}>
       <TouchableOpacity
-        style={[
-          styles.filterButton,
-          selectedPosition === "all" && styles.filterButtonActive,
-        ]}
-        onPress={() => onSelectedPosition("all")}
+        style={[styles.filterButton, selectedPosition === 'all' && styles.filterButtonActive]}
+        onPress={() => onSelectedPosition('all')}
       >
         <Text
           style={[
             styles.filterButtonText,
-            selectedPosition === "all" && styles.filterButtonTextActive,
+            selectedPosition === 'all' && styles.filterButtonTextActive,
           ]}
         >
           All
@@ -33,16 +30,13 @@ export default function PlayersFilter({
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[
-          styles.filterButton,
-          selectedPosition === "GK" && styles.filterButtonActive,
-        ]}
-        onPress={() => onSelectedPosition("GK")}
+        style={[styles.filterButton, selectedPosition === 'GK' && styles.filterButtonActive]}
+        onPress={() => onSelectedPosition('GK')}
       >
         <Text
           style={[
             styles.filterButtonText,
-            selectedPosition === "GK" && styles.filterButtonTextActive,
+            selectedPosition === 'GK' && styles.filterButtonTextActive,
           ]}
         >
           GK
@@ -50,16 +44,13 @@ export default function PlayersFilter({
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[
-          styles.filterButton,
-          selectedPosition === "DEF" && styles.filterButtonActive,
-        ]}
-        onPress={() => onSelectedPosition("DEF")}
+        style={[styles.filterButton, selectedPosition === 'DEF' && styles.filterButtonActive]}
+        onPress={() => onSelectedPosition('DEF')}
       >
         <Text
           style={[
             styles.filterButtonText,
-            selectedPosition === "DEF" && styles.filterButtonTextActive,
+            selectedPosition === 'DEF' && styles.filterButtonTextActive,
           ]}
         >
           DEF
@@ -67,16 +58,13 @@ export default function PlayersFilter({
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[
-          styles.filterButton,
-          selectedPosition === "MID" && styles.filterButtonActive,
-        ]}
-        onPress={() => onSelectedPosition("MID")}
+        style={[styles.filterButton, selectedPosition === 'MID' && styles.filterButtonActive]}
+        onPress={() => onSelectedPosition('MID')}
       >
         <Text
           style={[
             styles.filterButtonText,
-            selectedPosition === "MID" && styles.filterButtonTextActive,
+            selectedPosition === 'MID' && styles.filterButtonTextActive,
           ]}
         >
           MID
@@ -84,16 +72,13 @@ export default function PlayersFilter({
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[
-          styles.filterButton,
-          selectedPosition === "FWD" && styles.filterButtonActive,
-        ]}
-        onPress={() => onSelectedPosition("FWD")}
+        style={[styles.filterButton, selectedPosition === 'FWD' && styles.filterButtonActive]}
+        onPress={() => onSelectedPosition('FWD')}
       >
         <Text
           style={[
             styles.filterButtonText,
-            selectedPosition === "FWD" && styles.filterButtonTextActive,
+            selectedPosition === 'FWD' && styles.filterButtonTextActive,
           ]}
         >
           FWD
@@ -105,8 +90,8 @@ export default function PlayersFilter({
 
 const styles = StyleSheet.create({
   filterContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: spacing.sm,
     marginBottom: spacing.lg,
   },
@@ -128,7 +113,7 @@ const styles = StyleSheet.create({
   filterButtonText: {
     ...typography.body,
     color: colors.textSecondary,
-    fontWeight: "600",
+    fontWeight: '600',
   },
 
   filterButtonTextActive: {
