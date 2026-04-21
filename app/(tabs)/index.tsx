@@ -5,12 +5,26 @@ import { radius } from "@/src/theme/radius";
 import { spacing } from "@/src/theme/spacing";
 import { typography } from "@/src/theme/typography";
 import { MotiView } from "moti";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const { players, handleAddPlayer, squad, totalPlayers, totalPriceSquad } =
     useHome();
+
+  const [selectedPosition, setSelectedPosition] = useState("all");
+
+  const filteredPlayers =
+    selectedPosition === "all"
+      ? players
+      : players.filter((player) => player.position === selectedPosition);
 
   return (
     <MotiView
@@ -47,8 +61,95 @@ export default function HomeScreen() {
             </View>
           </View>
 
+          <View style={styles.filterContainer}>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                selectedPosition === "all" && styles.filterButtonActive,
+              ]}
+              onPress={() => setSelectedPosition("all")}
+            >
+              <Text
+                style={[
+                  styles.filterButtonText,
+                  selectedPosition === "all" && styles.filterButtonTextActive,
+                ]}
+              >
+                All
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                selectedPosition === "GK" && styles.filterButtonActive,
+              ]}
+              onPress={() => setSelectedPosition("GK")}
+            >
+              <Text
+                style={[
+                  styles.filterButtonText,
+                  selectedPosition === "GK" && styles.filterButtonTextActive,
+                ]}
+              >
+                GK
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                selectedPosition === "DEF" && styles.filterButtonActive,
+              ]}
+              onPress={() => setSelectedPosition("DEF")}
+            >
+              <Text
+                style={[
+                  styles.filterButtonText,
+                  selectedPosition === "DEF" && styles.filterButtonTextActive,
+                ]}
+              >
+                DEF
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                selectedPosition === "MID" && styles.filterButtonActive,
+              ]}
+              onPress={() => setSelectedPosition("MID")}
+            >
+              <Text
+                style={[
+                  styles.filterButtonText,
+                  selectedPosition === "MID" && styles.filterButtonTextActive,
+                ]}
+              >
+                MID
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                selectedPosition === "FWD" && styles.filterButtonActive,
+              ]}
+              onPress={() => setSelectedPosition("FWD")}
+            >
+              <Text
+                style={[
+                  styles.filterButtonText,
+                  selectedPosition === "FWD" && styles.filterButtonTextActive,
+                ]}
+              >
+                FWD
+              </Text>
+            </TouchableOpacity>
+          </View>
+
           <FlatList
-            data={players}
+            data={filteredPlayers}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => {
               const isAdded = squad.some((player) => player.id === item.id);
@@ -152,5 +253,36 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.textSecondary,
     lineHeight: 20,
+  },
+
+  filterContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: spacing.sm,
+    marginBottom: spacing.lg,
+  },
+
+  filterButton: {
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.xl ?? 999,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+  },
+
+  filterButtonActive: {
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
+
+  filterButtonText: {
+    ...typography.body,
+    color: colors.textSecondary,
+    fontWeight: "600",
+  },
+
+  filterButtonTextActive: {
+    color: colors.background,
   },
 });
