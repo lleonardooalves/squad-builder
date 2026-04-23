@@ -72,16 +72,16 @@ export default function PlayersFilter({
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.filterButton, selectedPosition === 'FWD' && styles.filterButtonActive]}
-        onPress={() => onSelectedPosition('FWD')}
+        style={[styles.filterButton, selectedPosition === 'ATT' && styles.filterButtonActive]}
+        onPress={() => onSelectedPosition('ATT')}
       >
         <Text
           style={[
             styles.filterButtonText,
-            selectedPosition === 'FWD' && styles.filterButtonTextActive,
+            selectedPosition === 'ATT' && styles.filterButtonTextActive,
           ]}
         >
-          FWD
+          ATT
         </Text>
       </TouchableOpacity>
     </View>

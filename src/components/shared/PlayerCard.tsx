@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { MotiView } from 'moti';
 import { useState } from 'react';
@@ -13,9 +14,18 @@ type PlayerCardProps = {
   onAdd?: (player: Player) => void;
   onRemove?: (id: string) => void;
   isAdded?: boolean;
+  isFavorite?: boolean;
+  onFavoriteToggle?: (player: Player) => void;
 };
 
-export function PlayerCard({ player, onAdd, onRemove, isAdded = false }: PlayerCardProps) {
+export function PlayerCard({
+  player,
+  onAdd,
+  onRemove,
+  isAdded = false,
+  isFavorite = false,
+  onFavoriteToggle,
+}: PlayerCardProps) {
   const [imageError, setImageError] = useState(false);
 
   return (
@@ -101,6 +111,16 @@ export function PlayerCard({ player, onAdd, onRemove, isAdded = false }: PlayerC
                   activeOpacity={0.8}
                 >
                   <Text style={styles.buttonText}>Remove</Text>
+                </TouchableOpacity>
+              )}
+
+              {onFavoriteToggle && (
+                <TouchableOpacity onPress={() => onFavoriteToggle(player)} activeOpacity={0.8}>
+                  <Ionicons
+                    name={isFavorite ? 'star' : 'star-outline'}
+                    size={24}
+                    color={colors.primary}
+                  />
                 </TouchableOpacity>
               )}
             </View>

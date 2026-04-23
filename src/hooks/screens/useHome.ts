@@ -1,4 +1,4 @@
-import { useSquadStore } from '@/src/store/squadStore';
+import { useSquadStore } from '@/src/stores/squadStore';
 import { useState } from 'react';
 import { mockPlayers } from '../../data/mockPlayers';
 import { Player } from '../../types/player';

@@ -39,7 +39,8 @@ This project focuses on clean architecture, reusable components, and real-world 
 app/
 (tabs)/
 index.tsx
-my-squad.tsx
+squad.tsx
+favorites.tsx
 player/
 [id].tsx
 
@@ -47,7 +48,7 @@ src/
 components/
 data/
 hooks/
-store/
+stores/
 theme/
 types/
 
@@ -57,8 +58,11 @@ types/
 
 <p align="center">
   <img src="./assets/screenshots/Home.PNG" width="220" />
+  <img src="./assets/screenshots/HomeFilter.PNG.PNG" width="220" />
   <img src="./assets/screenshots/SquadEmpty.PNG" width="220" />
   <img src="./assets/screenshots/Squad.PNG" width="220" />
+  <img src="./assets/screenshots/FavoritesEmpty.PNG" width="220" />
+  <img src="./assets/screenshots/Favorites.PNG" width="220" />
   <img src="./assets/screenshots/PlayerDetails.PNG" width="220" />
 </p>
 

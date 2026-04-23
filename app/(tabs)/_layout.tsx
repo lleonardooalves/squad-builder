@@ -48,6 +48,16 @@ export default function TabsLayout() {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="favorites"
+        options={{
+          title: 'Favorites',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'star' : 'star-outline'} size={22} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
