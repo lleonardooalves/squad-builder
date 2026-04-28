@@ -7,6 +7,7 @@ type SquadStore = {
   squad: Player[];
   addPlayer: (player: Player) => void;
   removePlayer: (id: string) => void;
+  clearSquad: () => void;
 };
 
 export const useSquadStore = create<SquadStore>()(
@@ -28,6 +29,10 @@ export const useSquadStore = create<SquadStore>()(
       removePlayer: (id) =>
         set((state) => ({
           squad: state.squad.filter((p) => p.id !== id),
+        })),
+      clearSquad: () =>
+        set(() => ({
+          squad: [],
         })),
     }),
     {

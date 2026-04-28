@@ -191,13 +191,13 @@ const styles = StyleSheet.create({
     borderRadius: 28,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F4A300',
+    backgroundColor: colors.rating,
   },
 
   ratingText: {
     fontSize: 22,
     fontWeight: '700',
-    color: '#FFF',
+    color: colors.ratingText,
   },
 
   bottomRow: {
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
   },
 
   buttonRemove: {
-    backgroundColor: colors.error,
+    backgroundColor: colors.red,
   },
   imagePlaceholder: {
     width: 78,
@@ -262,6 +262,6 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: '#F4A300',
+    backgroundColor: colors.rating,
   },
 });

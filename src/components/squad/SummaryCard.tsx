@@ -3,16 +3,25 @@ import { radius } from '@/src/theme/radius';
 import { spacing } from '@/src/theme/spacing';
 import { typography } from '@/src/theme/typography';
 import { StyleSheet, Text, View } from 'react-native';
+import ButtonClear from './ButtonClear';
 
 type SummaryCardProps = {
   totalPlayers: number;
   totalPriceSquad: number;
+  onClearSquad: () => void;
 };
 
-export default function SummaryCard({ totalPlayers, totalPriceSquad }: SummaryCardProps) {
+export default function SummaryCard({
+  totalPlayers,
+  totalPriceSquad,
+  onClearSquad,
+}: SummaryCardProps) {
   return (
     <View style={styles.summaryCard}>
-      <Text style={styles.summaryTitle}>Squad Summary</Text>
+      <View style={styles.titleRow}>
+        <Text style={styles.summaryTitle}>Squad Summary</Text>
+        {totalPlayers > 0 && <ButtonClear onClearSquad={onClearSquad} />}
+      </View>
 
       <View style={styles.summaryRow}>
         <View style={styles.summaryItem}>
@@ -77,5 +86,12 @@ const styles = StyleSheet.create({
     width: 1,
     height: 40,
     backgroundColor: colors.border,
+  },
+
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: spacing.md,
   },
 });

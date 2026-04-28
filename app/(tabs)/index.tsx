@@ -1,8 +1,7 @@
+import CurrentSquadCard from '@/src/components/home/CurrentSquad';
 import HomeHeader from '@/src/components/home/HomeHeader';
 import PlayersFilter from '@/src/components/home/PlayersFilter';
 import PlayersList from '@/src/components/shared/PlayersList';
-import SummaryCard from '@/src/components/shared/SummaryCard';
-import { useFavorites } from '@/src/hooks/screens/useFavorites';
 import { useHome } from '@/src/hooks/screens/useHome';
 import { colors } from '@/src/theme/colors';
 import { spacing } from '@/src/theme/spacing';
@@ -19,9 +18,9 @@ export default function HomeScreen() {
     filteredPlayers,
     selectedPosition,
     setSelectedPosition,
+    favorites,
+    onToggleFavorite,
   } = useHome();
-
-  const { favorites, onToggleFavorite } = useFavorites();
 
   return (
     <MotiView
@@ -33,7 +32,7 @@ export default function HomeScreen() {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <HomeHeader />
-          <SummaryCard totalPlayers={totalPlayers} totalPriceSquad={totalPriceSquad} />
+          <CurrentSquadCard totalPlayers={totalPlayers} totalPriceSquad={totalPriceSquad} />
 
           <PlayersFilter
             selectedPosition={selectedPosition}

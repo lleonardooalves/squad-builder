@@ -9,11 +9,14 @@ export function useSquad() {
 
   const isEmpty = totalPlayers === 0;
 
+  const clearSquad = useSquadStore((state) => state.clearSquad);
+
   return {
     squad,
     removePlayer,
     totalPlayers,
     totalValue,
     isEmpty,
+    clearSquad,
   };
 }

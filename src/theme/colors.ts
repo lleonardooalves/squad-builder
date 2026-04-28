@@ -1,3 +1,4 @@
+
 export const colors = {
   background: '#0D1117',
   surface: '#161B22',
@@ -12,6 +13,9 @@ export const colors = {
   border: '#30363D',
 
   success: '#22C55E',
-  error: '#EF4444',
+  red: '#EF4444',
   warning: '#F59E0B',
+
+  rating: '#F4A300',
+  ratingText: '#FFFFFF',
 };

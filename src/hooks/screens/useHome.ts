@@ -2,6 +2,7 @@ import { useSquadStore } from '@/src/stores/squadStore';
 import { useState } from 'react';
 import { mockPlayers } from '../../data/mockPlayers';
 import { Player } from '../../types/player';
+import { useFavorites } from './useFavorites';
 
 export function useHome() {
   const [players] = useState<Player[]>(mockPlayers);
@@ -22,6 +23,8 @@ export function useHome() {
     return total + player.price;
   }, 0);
 
+  const { favorites, onToggleFavorite } = useFavorites();
+
   return {
     players,
     squad,
@@ -32,5 +35,7 @@ export function useHome() {
     filteredPlayers,
     selectedPosition,
     setSelectedPosition,
+    favorites,
+    onToggleFavorite,
   };
 }

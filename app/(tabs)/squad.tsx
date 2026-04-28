@@ -1,7 +1,7 @@
 import PlayersList from '@/src/components/shared/PlayersList';
-import SummaryCard from '@/src/components/shared/SummaryCard';
 import EmptyCard from '@/src/components/squad/EmptyCard';
 import SquadHeader from '@/src/components/squad/SquadHeader';
+import SummaryCard from '@/src/components/squad/SummaryCard';
 import { useSquad } from '@/src/hooks/screens/useSquad';
 import { colors } from '@/src/theme/colors';
 import { spacing } from '@/src/theme/spacing';
@@ -10,7 +10,7 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SquadScreen() {
-  const { squad, removePlayer, totalPlayers, totalValue, isEmpty } = useSquad();
+  const { squad, removePlayer, totalPlayers, totalValue, isEmpty, clearSquad } = useSquad();
 
   return (
     <MotiView
@@ -23,7 +23,11 @@ export default function SquadScreen() {
         <View style={styles.container}>
           <SquadHeader />
 
-          <SummaryCard totalPlayers={totalPlayers} totalPriceSquad={totalValue} />
+          <SummaryCard
+            totalPlayers={totalPlayers}
+            totalPriceSquad={totalValue}
+            onClearSquad={clearSquad}
+          />
 
           {isEmpty ? (
             <EmptyCard />
