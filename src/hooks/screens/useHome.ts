@@ -10,6 +10,12 @@ export function useHome() {
   const addPlayer = useSquadStore((state) => state.addPlayer);
   const removePlayer = useSquadStore((state) => state.removePlayer);
 
+  const [selectedPosition, setSelectedPosition] = useState('all');
+  const filteredPlayers =
+    selectedPosition === 'all'
+      ? players
+      : players.filter((player) => player.position === selectedPosition);
+
   const totalPlayers = squad.length;
 
   const totalPriceSquad = squad.reduce((total, player) => {
@@ -23,5 +29,8 @@ export function useHome() {
     handleRemovePlayer: removePlayer,
     totalPlayers,
     totalPriceSquad,
+    filteredPlayers,
+    selectedPosition,
+    setSelectedPosition,
   };
 }

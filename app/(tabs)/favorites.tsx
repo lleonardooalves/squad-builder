@@ -1,7 +1,7 @@
 import FavoritesEmptyCard from '@/src/components/favorites/FavoritesEmptyCard';
 import FavoritesHeader from '@/src/components/favorites/FavoritesHeader';
 import PlayersList from '@/src/components/shared/PlayersList';
-import { useFavoritesStore } from '@/src/stores/favoritesStore';
+import { useFavorites } from '@/src/hooks/screens/useFavorites';
 import { colors } from '@/src/theme/colors';
 import { spacing } from '@/src/theme/spacing';
 import { MotiView } from 'moti';
@@ -9,10 +9,8 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function FavoritesScreen() {
-  const favorites = useFavoritesStore((state) => state.favorites);
-  const onToggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
+  const { favorites, onToggleFavorite, isEmpty } = useFavorites();
 
-  const isEmpty = favorites.length === 0;
   return (
     <MotiView
       from={{ opacity: 0, translateY: 10 }}

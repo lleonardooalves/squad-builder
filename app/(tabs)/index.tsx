@@ -2,27 +2,26 @@ import HomeHeader from '@/src/components/home/HomeHeader';
 import PlayersFilter from '@/src/components/home/PlayersFilter';
 import PlayersList from '@/src/components/shared/PlayersList';
 import SummaryCard from '@/src/components/shared/SummaryCard';
+import { useFavorites } from '@/src/hooks/screens/useFavorites';
 import { useHome } from '@/src/hooks/screens/useHome';
-import { useFavoritesStore } from '@/src/stores/favoritesStore';
 import { colors } from '@/src/theme/colors';
 import { spacing } from '@/src/theme/spacing';
 import { MotiView } from 'moti';
-import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
-  const { players, handleAddPlayer, squad, totalPlayers, totalPriceSquad } = useHome();
+  const {
+    handleAddPlayer,
+    squad,
+    totalPlayers,
+    totalPriceSquad,
+    filteredPlayers,
+    selectedPosition,
+    setSelectedPosition,
+  } = useHome();
 
-  const [selectedPosition, setSelectedPosition] = useState('all');
-
-  const onToggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
-  const favorites = useFavoritesStore((state) => state.favorites);
-
-  const filteredPlayers =
-    selectedPosition === 'all'
-      ? players
-      : players.filter((player) => player.position === selectedPosition);
+  const { favorites, onToggleFavorite } = useFavorites();
 
   return (
     <MotiView
