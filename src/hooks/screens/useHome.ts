@@ -12,10 +12,11 @@ export function useHome() {
   const removePlayer = useSquadStore((state) => state.removePlayer);
 
   const [selectedPosition, setSelectedPosition] = useState('all');
-  const filteredPlayers =
-    selectedPosition === 'all'
-      ? players
-      : players.filter((player) => player.position === selectedPosition);
+  const [searchText, setSearchText] = useState('');
+
+  const filteredPlayers = players
+    .filter((player) => (selectedPosition === 'all' ? true : player.position === selectedPosition))
+    .filter((player) => player.name.toLowerCase().includes(searchText.trim().toLowerCase()));
 
   const totalPlayers = squad.length;
 
@@ -37,5 +38,7 @@ export function useHome() {
     setSelectedPosition,
     favorites,
     onToggleFavorite,
+    searchText,
+    setSearchText,
   };
 }

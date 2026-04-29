@@ -1,6 +1,7 @@
 import CurrentSquadCard from '@/src/components/home/CurrentSquad';
 import HomeHeader from '@/src/components/home/HomeHeader';
 import PlayersFilter from '@/src/components/home/PlayersFilter';
+import SearchBar from '@/src/components/home/SearchBar';
 import PlayersList from '@/src/components/shared/PlayersList';
 import { useHome } from '@/src/hooks/screens/useHome';
 import { colors } from '@/src/theme/colors';
@@ -20,6 +21,8 @@ export default function HomeScreen() {
     setSelectedPosition,
     favorites,
     onToggleFavorite,
+    searchText,
+    setSearchText,
   } = useHome();
 
   return (
@@ -33,11 +36,12 @@ export default function HomeScreen() {
         <View style={styles.container}>
           <HomeHeader />
           <CurrentSquadCard totalPlayers={totalPlayers} totalPriceSquad={totalPriceSquad} />
-
+          <SearchBar searchText={searchText} onSearchChange={setSearchText} />
           <PlayersFilter
             selectedPosition={selectedPosition}
             onSelectedPosition={(position) => setSelectedPosition(position)}
           />
+
           <PlayersList
             data={filteredPlayers}
             squad={squad}

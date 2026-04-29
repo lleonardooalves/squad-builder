@@ -186,8 +186,8 @@ const styles = StyleSheet.create({
   },
 
   ratingBadge: {
-    width: 56,
-    height: 56,
+    width: 45,
+    height: 45,
     borderRadius: 28,
     alignItems: 'center',
     justifyContent: 'center',
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   },
 
   ratingText: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '700',
     color: colors.ratingText,
   },
@@ -251,16 +251,16 @@ const styles = StyleSheet.create({
     marginRight: spacing.md,
   },
   ratingWrapper: {
-    width: 64,
-    height: 64,
+    width: 55,
+    height: 55,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   ratingGlow: {
     position: 'absolute',
-    width: 64,
-    height: 64,
+    width: 55,
+    height: 55,
     borderRadius: 32,
     backgroundColor: colors.rating,
   },
