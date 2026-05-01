@@ -32,7 +32,7 @@ export default function HomeScreen() {
       transition={{ type: 'timing', duration: 250 }}
       style={{ flex: 1 }}
     >
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView style={styles.safeArea} edges={['top']}>
         <View style={styles.container}>
           <HomeHeader />
           <CurrentSquadCard totalPlayers={totalPlayers} totalPriceSquad={totalPriceSquad} />

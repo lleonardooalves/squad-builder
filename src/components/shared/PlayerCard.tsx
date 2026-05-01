@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   name: {
     ...typography.subtitle,
     color: colors.text,
-    marginBottom: 4,
+    marginBottom: 5,
     fontWeight: '700',
   },
 

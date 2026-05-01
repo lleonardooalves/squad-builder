@@ -3,7 +3,7 @@ import { radius } from '@/src/theme/radius';
 import { spacing } from '@/src/theme/spacing';
 import { typography } from '@/src/theme/typography';
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
 type SearchBarProps = {
   searchText: string;
@@ -22,6 +22,17 @@ export default function SearchBar({ searchText, onSearchChange }: SearchBarProps
         placeholderTextColor={colors.textSecondary}
         style={styles.searchInput}
       />
+
+      {searchText.length > 0 && (
+        <TouchableOpacity>
+          <Ionicons
+            name="close-circle"
+            size={20}
+            color={colors.textSecondary}
+            onPress={() => onSearchChange('')}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
