@@ -3,6 +3,7 @@ import { colors } from '@/src/theme/colors';
 import { radius } from '@/src/theme/radius';
 import { spacing } from '@/src/theme/spacing';
 import { typography } from '@/src/theme/typography';
+import { getOverallStyle } from '@/src/utils/getOverallStyle';
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -15,6 +16,8 @@ export default function PlayerScreen() {
   const player = mockPlayers.find((item) => item.id === id);
 
   const [imageError, setImageError] = useState(false);
+
+  const overallStyle = getOverallStyle(player?.id ? player.rating : 0);
 
   useEffect(() => {
     setImageError(false);
@@ -46,6 +49,18 @@ export default function PlayerScreen() {
         </View>
 
         <View style={styles.card}>
+          <View style={styles.topRow}>
+            <View style={styles.rarityBadge}>
+              <Ionicons name="sparkles" size={14} color={colors.warning} />
+              <Text style={styles.rarityText}>Rare Player</Text>
+            </View>
+
+            <View style={styles.trendBadge}>
+              <Ionicons name="trending-up" size={15} color="#2ECC71" />
+              <Text style={styles.trendText}>+2</Text>
+            </View>
+          </View>
+
           {imageError ? (
             <View style={styles.imagePlaceholder}>
               <Text style={styles.placeholderText}>👤</Text>
@@ -59,21 +74,49 @@ export default function PlayerScreen() {
           )}
 
           <Text style={styles.name}>{player.name}</Text>
-          <Text style={styles.team}>{player.team}</Text>
+          <Text style={styles.meta}>
+            {player.team} • {player.position}
+          </Text>
 
           <View style={styles.infoRow}>
-            <View style={styles.infoBadge}>
-              <Text style={styles.infoLabel}>Position</Text>
-              <Text style={styles.infoValue}>{player.position}</Text>
+            <View style={styles.statusPill}>
+              <Ionicons name="flame" size={16} color={colors.warning} />
+              <Text style={styles.statusText}>In Form</Text>
             </View>
 
-            <View style={styles.infoBadge}>
-              <Text style={styles.infoLabel}>Value</Text>
-              <Text style={styles.infoValue}>€ {player.price}M</Text>
+            <Text style={styles.price}>€ {player.price}M</Text>
+          </View>
+
+          <View style={styles.attributesBox}>
+            <Text style={styles.sectionTitle}>Attributes</Text>
+
+            <View style={styles.attributeRow}>
+              <Text style={styles.attributeLabel}>Pace</Text>
+              <Text style={styles.attributeValue}>82</Text>
+            </View>
+
+            <View style={styles.attributeRow}>
+              <Text style={styles.attributeLabel}>Passing</Text>
+              <Text style={styles.attributeValue}>85</Text>
+            </View>
+
+            <View style={styles.attributeRow}>
+              <Text style={styles.attributeLabel}>Fin</Text>
+              <Text style={styles.attributeValue}>90</Text>
+            </View>
+
+            <View style={styles.attributeRow}>
+              <Text style={styles.attributeLabel}>Dribbling</Text>
+              <Text style={styles.attributeValue}>80</Text>
+            </View>
+
+            <View style={styles.attributeRow}>
+              <Text style={styles.attributeLabel}>Defense</Text>
+              <Text style={styles.attributeValue}>40</Text>
             </View>
           </View>
 
-          <View style={styles.ratingBadge}>
+          <View style={[styles.ratingBadge, overallStyle]}>
             <Text style={styles.ratingText}>{player.rating}</Text>
           </View>
         </View>
@@ -92,7 +135,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     paddingHorizontal: spacing.md,
-    paddingTop: spacing.lg,
+    paddingTop: spacing.xs,
   },
 
   header: {
@@ -123,17 +166,64 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
     alignItems: 'center',
     backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    padding: spacing.lg,
+    padding: spacing.md,
     borderWidth: 1,
     borderColor: colors.border,
+    borderTopLeftRadius: radius.lg,
+    borderTopRightRadius: radius.lg,
+
+    borderBottomLeftRadius: 55,
+    borderBottomRightRadius: 55,
+  },
+
+  topRow: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: spacing.md,
+  },
+
+  rarityBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: '#2A2412',
+    borderWidth: 1,
+    borderColor: colors.warning,
+    borderRadius: 999,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+
+  rarityText: {
+    ...typography.body,
+    color: colors.warning,
+    fontSize: 12,
+    fontWeight: '700',
+  },
+
+  trendBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#10261A',
+    borderRadius: 999,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+
+  trendText: {
+    ...typography.body,
+    color: '#2ECC71',
+    fontSize: 12,
+    fontWeight: '700',
   },
 
   image: {
     width: 220,
     height: 220,
-    borderRadius: radius.lg,
-    marginBottom: spacing.lg,
+    resizeMode: 'contain',
+    marginBottom: spacing.md,
   },
 
   imagePlaceholder: {
@@ -143,7 +233,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfaceLight,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: spacing.lg,
+    marginBottom: spacing.md,
   },
 
   placeholderText: {
@@ -153,63 +243,104 @@ const styles = StyleSheet.create({
   name: {
     ...typography.title,
     color: colors.text,
-    fontWeight: '700',
+    fontWeight: '800',
     textAlign: 'center',
-    marginBottom: spacing.sm,
   },
 
-  team: {
+  meta: {
     ...typography.body,
     color: colors.textSecondary,
-    marginBottom: spacing.lg,
+    marginTop: spacing.xs,
     textAlign: 'center',
   },
 
   infoRow: {
-    flexDirection: 'row',
     width: '100%',
-    gap: spacing.sm,
-    marginBottom: spacing.lg,
-  },
-
-  infoBadge: {
-    flex: 1,
-    backgroundColor: colors.background,
-    borderRadius: radius.md,
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.border,
+    marginTop: spacing.lg,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 
-  infoLabel: {
-    ...typography.body,
-    color: colors.textSecondary,
-    marginBottom: 2,
-    fontSize: 12,
-    opacity: 0.8,
+  statusPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: colors.background,
+    borderRadius: 999,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
 
-  infoValue: {
+  statusText: {
     ...typography.body,
     color: colors.text,
     fontWeight: '700',
   },
 
+  price: {
+    ...typography.title,
+    color: colors.primary,
+    fontWeight: '800',
+  },
+
+  attributesBox: {
+    width: '100%',
+    marginTop: spacing.lg,
+    backgroundColor: colors.background,
+    borderRadius: radius.md,
+    padding: spacing.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+
+  sectionTitle: {
+    ...typography.body,
+    color: colors.text,
+    fontWeight: '800',
+    marginBottom: spacing.sm,
+    textAlign: 'center',
+  },
+
+  attributeRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: spacing.xs,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
+
+  attributeLabel: {
+    ...typography.body,
+    color: colors.textSecondary,
+  },
+
+  attributeValue: {
+    ...typography.body,
+    color: colors.text,
+    fontWeight: '800',
+  },
+
   ratingBadge: {
-    minWidth: 80,
+    width: 80,
     height: 80,
     borderRadius: 999,
-    backgroundColor: colors.warning,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: spacing.sm,
+    borderWidth: 2,
+
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 6,
+    marginTop: spacing.md,
   },
 
   ratingText: {
     ...typography.title,
     color: colors.text,
-    fontWeight: '700',
+    fontWeight: '800',
   },
 });
