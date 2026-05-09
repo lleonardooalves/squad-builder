@@ -3,7 +3,7 @@ import { Player } from '../types/player';
 export const mockPlayers: Player[] = [
   {
     id: '1',
-    name: 'Carlos Vnícius',
+    name: 'Carlos Vinícius',
     team: 'Grêmio',
     position: 'ATT',
     price: 30,

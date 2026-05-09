@@ -1,3 +1,4 @@
+import { getOverallStyle } from '@/src/utils/getOverallStyle';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { MotiView } from 'moti';
@@ -27,6 +28,8 @@ export function PlayerCard({
   onFavoriteToggle,
 }: PlayerCardProps) {
   const [imageError, setImageError] = useState(false);
+
+  const overallStyle = getOverallStyle(player.rating);
 
   return (
     <MotiView
@@ -81,7 +84,7 @@ export function PlayerCard({
                 style={styles.ratingGlow}
               />
 
-              <View style={styles.ratingBadge}>
+              <View style={[styles.ratingBadge, overallStyle]}>
                 <Text style={styles.ratingText}>{player.rating}</Text>
               </View>
             </View>
@@ -186,12 +189,17 @@ const styles = StyleSheet.create({
   },
 
   ratingBadge: {
-    width: 45,
-    height: 45,
-    borderRadius: 28,
+    width: 55,
+    height: 55,
+    borderRadius: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.rating,
+    borderWidth: 2,
+
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 6,
   },
 
   ratingText: {
