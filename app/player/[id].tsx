@@ -4,6 +4,7 @@ import { radius } from '@/src/theme/radius';
 import { spacing } from '@/src/theme/spacing';
 import { typography } from '@/src/theme/typography';
 import { getOverallStyle } from '@/src/utils/getOverallStyle';
+import { getPlayerFormInfo, getPlayerFormModifier } from '@/src/utils/getPlayerForm';
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -16,8 +17,6 @@ export default function PlayerScreen() {
   const player = mockPlayers.find((item) => item.id === id);
 
   const [imageError, setImageError] = useState(false);
-
-  const overallStyle = getOverallStyle(player?.id ? player.rating : 0);
 
   useEffect(() => {
     setImageError(false);
@@ -33,6 +32,10 @@ export default function PlayerScreen() {
     );
   }
 
+  const overallStyle = getOverallStyle(player.rating);
+
+  const formInfo = getPlayerFormInfo(player.form);
+  const formModifier = getPlayerFormModifier(player.form);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -51,13 +54,13 @@ export default function PlayerScreen() {
         <View style={styles.card}>
           <View style={styles.topRow}>
             <View style={styles.rarityBadge}>
-              <Ionicons name="sparkles" size={14} color={colors.warning} />
+              <Ionicons name="sparkles" size={18} color="#F6A500" />
               <Text style={styles.rarityText}>Rare Player</Text>
             </View>
 
-            <View style={styles.trendBadge}>
-              <Ionicons name="trending-up" size={15} color="#2ECC71" />
-              <Text style={styles.trendText}>+2</Text>
+            <View style={[styles.trendBadge, { backgroundColor: formInfo.backgroundColor }]}>
+              <Ionicons name={formInfo.icon} size={15} color={formInfo.color} />
+              <Text style={[styles.trendText, { color: formInfo.color }]}>{formInfo.trend}</Text>
             </View>
           </View>
 
@@ -74,14 +77,15 @@ export default function PlayerScreen() {
           )}
 
           <Text style={styles.name}>{player.name}</Text>
+
           <Text style={styles.meta}>
             {player.team} • {player.position}
           </Text>
 
           <View style={styles.infoRow}>
             <View style={styles.statusPill}>
-              <Ionicons name="flame" size={16} color={colors.warning} />
-              <Text style={styles.statusText}>In Form</Text>
+              <Ionicons name={formInfo.statusIcon} size={16} color={formInfo.color} />
+              <Text style={styles.statusText}>{formInfo.label}</Text>
             </View>
 
             <Text style={styles.price}>€ {player.price}M</Text>
@@ -90,30 +94,77 @@ export default function PlayerScreen() {
           <View style={styles.attributesBox}>
             <Text style={styles.sectionTitle}>Attributes</Text>
 
-            <View style={styles.attributeRow}>
-              <Text style={styles.attributeLabel}>Pace</Text>
-              <Text style={styles.attributeValue}>82</Text>
-            </View>
+            {player.position === 'GK' ? (
+              <>
+                <View style={styles.attributeRow}>
+                  <Text style={styles.attributeLabel}>Reflexes</Text>
+                  <Text style={styles.attributeValue}>
+                    {player.attributes.reflexes + formModifier}
+                  </Text>{' '}
+                </View>
 
-            <View style={styles.attributeRow}>
-              <Text style={styles.attributeLabel}>Passing</Text>
-              <Text style={styles.attributeValue}>85</Text>
-            </View>
+                <View style={styles.attributeRow}>
+                  <Text style={styles.attributeLabel}>Handling</Text>
+                  <Text style={styles.attributeValue}>
+                    {player.attributes.handling + formModifier}
+                  </Text>
+                </View>
 
-            <View style={styles.attributeRow}>
-              <Text style={styles.attributeLabel}>Fin</Text>
-              <Text style={styles.attributeValue}>90</Text>
-            </View>
+                <View style={styles.attributeRow}>
+                  <Text style={styles.attributeLabel}>Diving</Text>
+                  <Text style={styles.attributeValue}>
+                    {player.attributes.diving + formModifier}
+                  </Text>
+                </View>
 
-            <View style={styles.attributeRow}>
-              <Text style={styles.attributeLabel}>Dribbling</Text>
-              <Text style={styles.attributeValue}>80</Text>
-            </View>
+                <View style={styles.attributeRow}>
+                  <Text style={styles.attributeLabel}>Positioning</Text>
+                  <Text style={styles.attributeValue}>
+                    {player.attributes.positioning + formModifier}
+                  </Text>
+                </View>
 
-            <View style={styles.attributeRow}>
-              <Text style={styles.attributeLabel}>Defense</Text>
-              <Text style={styles.attributeValue}>40</Text>
-            </View>
+                <View style={styles.attributeRow}>
+                  <Text style={styles.attributeLabel}>Kicking</Text>
+                  <Text style={styles.attributeValue}>
+                    {player.attributes.kicking + formModifier}
+                  </Text>
+                </View>
+              </>
+            ) : (
+              <>
+                <View style={styles.attributeRow}>
+                  <Text style={styles.attributeLabel}>Pace</Text>
+                  <Text style={styles.attributeValue}>{player.attributes.pace + formModifier}</Text>
+                </View>
+
+                <View style={styles.attributeRow}>
+                  <Text style={styles.attributeLabel}>Passing</Text>
+                  <Text style={styles.attributeValue}>
+                    {player.attributes.passing + formModifier}
+                  </Text>
+                </View>
+
+                <View style={styles.attributeRow}>
+                  <Text style={styles.attributeLabel}>Finishing</Text>
+                  <Text style={styles.attributeValue}>{player.attributes.fin + formModifier}</Text>
+                </View>
+
+                <View style={styles.attributeRow}>
+                  <Text style={styles.attributeLabel}>Dribbling</Text>
+                  <Text style={styles.attributeValue}>
+                    {player.attributes.dribbling + formModifier}
+                  </Text>
+                </View>
+
+                <View style={styles.attributeRow}>
+                  <Text style={styles.attributeLabel}>Defense</Text>
+                  <Text style={styles.attributeValue}>
+                    {player.attributes.defense + formModifier}
+                  </Text>
+                </View>
+              </>
+            )}
           </View>
 
           <View style={[styles.ratingBadge, overallStyle]}>
