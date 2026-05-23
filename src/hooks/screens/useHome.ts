@@ -2,6 +2,7 @@ import { useSquadStore } from '@/src/stores/squadStore';
 import { useState } from 'react';
 import { mockPlayers } from '../../data/mockPlayers';
 import { Player } from '../../types/player';
+import { useDebounce } from './useDebounce';
 import { useFavorites } from './useFavorites';
 
 export function useHome() {
@@ -13,10 +14,11 @@ export function useHome() {
 
   const [selectedPosition, setSelectedPosition] = useState('all');
   const [searchText, setSearchText] = useState('');
+  const debouncedSearch = useDebounce(searchText, 300);
 
   const filteredPlayers = players
     .filter((player) => (selectedPosition === 'all' ? true : player.position === selectedPosition))
-    .filter((player) => player.name.toLowerCase().includes(searchText.trim().toLowerCase()));
+    .filter((player) => player.name.toLowerCase().includes(debouncedSearch.trim().toLowerCase()));
 
   const totalPlayers = squad.length;
 
