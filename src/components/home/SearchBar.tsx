@@ -24,13 +24,8 @@ export default function SearchBar({ searchText, onSearchChange }: SearchBarProps
       />
 
       {searchText.length > 0 && (
-        <TouchableOpacity>
-          <Ionicons
-            name="close-circle"
-            size={20}
-            color={colors.textSecondary}
-            onPress={() => onSearchChange('')}
-          />
+        <TouchableOpacity onPress={() => onSearchChange('')}>
+          <Ionicons name="close-circle" size={20} color={colors.textSecondary} />
         </TouchableOpacity>
       )}
     </View>

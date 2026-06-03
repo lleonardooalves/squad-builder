@@ -1,4 +1,6 @@
+import { SquadView } from '@/src/components/squad/ViewToggle';
 import { useSquadStore } from '@/src/stores/squadStore';
+import { useState } from 'react';
 
 export function useSquad() {
   const squad = useSquadStore((state) => state.squad);
@@ -11,6 +13,8 @@ export function useSquad() {
 
   const clearSquad = useSquadStore((state) => state.clearSquad);
 
+  const [view, setView] = useState<SquadView>('list');
+
   return {
     squad,
     removePlayer,
@@ -18,5 +22,7 @@ export function useSquad() {
     totalValue,
     isEmpty,
     clearSquad,
+    view,
+    setView,
   };
 }
