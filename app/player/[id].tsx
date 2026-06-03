@@ -1,3 +1,4 @@
+import AttributeRow from '@/src/components/player/AttributeRow';
 import { mockPlayers } from '@/src/data/mockPlayers';
 import { colors } from '@/src/theme/colors';
 import { radius } from '@/src/theme/radius';
@@ -36,6 +37,24 @@ export default function PlayerScreen() {
 
   const formInfo = getPlayerFormInfo(player.form);
   const formModifier = getPlayerFormModifier(player.form);
+
+  const attributes =
+    player.position === 'GK'
+      ? [
+          { label: 'Reflexes', base: player.attributes.reflexes },
+          { label: 'Handling', base: player.attributes.handling },
+          { label: 'Diving', base: player.attributes.diving },
+          { label: 'Positioning', base: player.attributes.positioning },
+          { label: 'Kicking', base: player.attributes.kicking },
+        ]
+      : [
+          { label: 'Pace', base: player.attributes.pace },
+          { label: 'Passing', base: player.attributes.passing },
+          { label: 'Finishing', base: player.attributes.fin },
+          { label: 'Dribbling', base: player.attributes.dribbling },
+          { label: 'Defense', base: player.attributes.defense },
+        ];
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -94,77 +113,14 @@ export default function PlayerScreen() {
           <View style={styles.attributesBox}>
             <Text style={styles.sectionTitle}>Attributes</Text>
 
-            {player.position === 'GK' ? (
-              <>
-                <View style={styles.attributeRow}>
-                  <Text style={styles.attributeLabel}>Reflexes</Text>
-                  <Text style={styles.attributeValue}>
-                    {player.attributes.reflexes + formModifier}
-                  </Text>{' '}
-                </View>
-
-                <View style={styles.attributeRow}>
-                  <Text style={styles.attributeLabel}>Handling</Text>
-                  <Text style={styles.attributeValue}>
-                    {player.attributes.handling + formModifier}
-                  </Text>
-                </View>
-
-                <View style={styles.attributeRow}>
-                  <Text style={styles.attributeLabel}>Diving</Text>
-                  <Text style={styles.attributeValue}>
-                    {player.attributes.diving + formModifier}
-                  </Text>
-                </View>
-
-                <View style={styles.attributeRow}>
-                  <Text style={styles.attributeLabel}>Positioning</Text>
-                  <Text style={styles.attributeValue}>
-                    {player.attributes.positioning + formModifier}
-                  </Text>
-                </View>
-
-                <View style={styles.attributeRow}>
-                  <Text style={styles.attributeLabel}>Kicking</Text>
-                  <Text style={styles.attributeValue}>
-                    {player.attributes.kicking + formModifier}
-                  </Text>
-                </View>
-              </>
-            ) : (
-              <>
-                <View style={styles.attributeRow}>
-                  <Text style={styles.attributeLabel}>Pace</Text>
-                  <Text style={styles.attributeValue}>{player.attributes.pace + formModifier}</Text>
-                </View>
-
-                <View style={styles.attributeRow}>
-                  <Text style={styles.attributeLabel}>Passing</Text>
-                  <Text style={styles.attributeValue}>
-                    {player.attributes.passing + formModifier}
-                  </Text>
-                </View>
-
-                <View style={styles.attributeRow}>
-                  <Text style={styles.attributeLabel}>Finishing</Text>
-                  <Text style={styles.attributeValue}>{player.attributes.fin + formModifier}</Text>
-                </View>
-
-                <View style={styles.attributeRow}>
-                  <Text style={styles.attributeLabel}>Dribbling</Text>
-                  <Text style={styles.attributeValue}>
-                    {player.attributes.dribbling + formModifier}
-                  </Text>
-                </View>
-
-                <View style={styles.attributeRow}>
-                  <Text style={styles.attributeLabel}>Defense</Text>
-                  <Text style={styles.attributeValue}>
-                    {player.attributes.defense + formModifier}
-                  </Text>
-                </View>
-              </>
-            )}
+            {attributes.map((attribute) => (
+              <AttributeRow
+                key={attribute.label}
+                label={attribute.label}
+                base={attribute.base}
+                modifier={formModifier}
+              />
+            ))}
           </View>
 
           <View style={[styles.ratingBadge, overallStyle]}>
@@ -353,25 +309,6 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     marginBottom: spacing.sm,
     textAlign: 'center',
-  },
-
-  attributeRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: spacing.xs,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
-
-  attributeLabel: {
-    ...typography.body,
-    color: colors.textSecondary,
-  },
-
-  attributeValue: {
-    ...typography.body,
-    color: colors.text,
-    fontWeight: '800',
   },
 
   ratingBadge: {

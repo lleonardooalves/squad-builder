@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: radius.xl ?? 999,
+    borderRadius: radius.xl,
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.md,
   },

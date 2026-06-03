@@ -2,6 +2,7 @@ import { colors } from '@/src/theme/colors';
 import { radius } from '@/src/theme/radius';
 import { spacing } from '@/src/theme/spacing';
 import { typography } from '@/src/theme/typography';
+import { formatSquadValue } from '@/src/utils/formatSquadValue';
 import { StyleSheet, Text, View } from 'react-native';
 import ButtonClear from './ButtonClear';
 
@@ -32,7 +33,7 @@ export default function SummaryCard({
         <View style={styles.summaryDivider} />
 
         <View style={styles.summaryItem}>
-          <Text style={styles.summaryValue}>€ {totalPriceSquad}M</Text>
+          <Text style={styles.summaryValue}>{formatSquadValue(totalPriceSquad)}</Text>
           <Text style={styles.summaryLabel}>Total Value</Text>
         </View>
       </View>
@@ -53,11 +54,6 @@ const styles = StyleSheet.create({
     ...typography.subtitle,
     color: colors.text,
     marginBottom: spacing.sm,
-  },
-  summaryText: {
-    ...typography.body,
-    color: colors.textSecondary,
-    marginBottom: spacing.xs,
   },
   summaryRow: {
     flexDirection: 'row',

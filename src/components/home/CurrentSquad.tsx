@@ -2,6 +2,7 @@ import { colors } from '@/src/theme/colors';
 import { radius } from '@/src/theme/radius';
 import { spacing } from '@/src/theme/spacing';
 import { typography } from '@/src/theme/typography';
+import { formatSquadValue } from '@/src/utils/formatSquadValue';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -25,7 +26,7 @@ export default function CurrentSquadCard({ totalPlayers, totalPriceSquad }: Curr
 
         <View style={styles.divider} />
 
-        <Text style={styles.value}>€ {totalPriceSquad}M</Text>
+        <Text style={styles.value}>{formatSquadValue(totalPriceSquad)}</Text>
 
         <Ionicons name="chevron-forward" size={18} color={colors.textSecondary} />
       </View>

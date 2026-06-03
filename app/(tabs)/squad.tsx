@@ -1,7 +1,9 @@
 import PlayersList from '@/src/components/shared/PlayersList';
 import EmptyCard from '@/src/components/squad/EmptyCard';
+import Field from '@/src/components/squad/Field';
 import SquadHeader from '@/src/components/squad/SquadHeader';
 import SummaryCard from '@/src/components/squad/SummaryCard';
+import ViewToggle from '@/src/components/squad/ViewToggle';
 import { useSquad } from '@/src/hooks/screens/useSquad';
 import { colors } from '@/src/theme/colors';
 import { spacing } from '@/src/theme/spacing';
@@ -10,7 +12,8 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SquadScreen() {
-  const { squad, removePlayer, totalPlayers, totalValue, isEmpty, clearSquad } = useSquad();
+  const { squad, removePlayer, totalPlayers, totalValue, isEmpty, clearSquad, view, setView } =
+    useSquad();
 
   return (
     <MotiView
@@ -19,7 +22,7 @@ export default function SquadScreen() {
       transition={{ type: 'timing', duration: 250 }}
       style={{ flex: 1 }}
     >
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView style={styles.safeArea} edges={['top']}>
         <View style={styles.container}>
           <SquadHeader />
 
@@ -32,7 +35,15 @@ export default function SquadScreen() {
           {isEmpty ? (
             <EmptyCard />
           ) : (
-            <PlayersList data={squad} squad={squad} onRemovePlayer={removePlayer} />
+            <>
+              <ViewToggle value={view} onChange={setView} />
+
+              {view === 'list' ? (
+                <PlayersList data={squad} squad={squad} onRemovePlayer={removePlayer} />
+              ) : (
+                <Field squad={squad} />
+              )}
+            </>
           )}
         </View>
       </SafeAreaView>
