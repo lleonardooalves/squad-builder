@@ -55,6 +55,8 @@ export default function FieldPlayer({ player }: FieldPlayerProps) {
         <Text style={styles.name} numberOfLines={1}>
           {player.name}
         </Text>
+
+        <Text style={styles.position}>{player.position}</Text>
       </TouchableOpacity>
     </MotiView>
   );
@@ -65,7 +67,8 @@ const AVATAR_SIZE = 52;
 const styles = StyleSheet.create({
   token: {
     alignItems: 'center',
-    width: 72,
+    width: 70,
+    marginEnd: spacing.sm,
   },
 
   avatarWrapper: {
@@ -127,5 +130,13 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     borderRadius: radius.sm,
     overflow: 'hidden',
+  },
+
+  position: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: colors.text,
+    marginTop: 2,
+    letterSpacing: 1,
   },
 });

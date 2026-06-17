@@ -3,6 +3,7 @@ import { radius } from '@/src/theme/radius';
 import { spacing } from '@/src/theme/spacing';
 import { typography } from '@/src/theme/typography';
 import { formatSquadValue } from '@/src/utils/formatSquadValue';
+import { MAX_SQUAD_SIZE } from '@/src/utils/squadRules';
 import { StyleSheet, Text, View } from 'react-native';
 import ButtonClear from './ButtonClear';
 
@@ -26,7 +27,9 @@ export default function SummaryCard({
 
       <View style={styles.summaryRow}>
         <View style={styles.summaryItem}>
-          <Text style={styles.summaryValue}>{totalPlayers}</Text>
+          <Text style={styles.summaryValue}>
+            {totalPlayers}/{MAX_SQUAD_SIZE}
+          </Text>
           <Text style={styles.summaryLabel}>Players</Text>
         </View>
 
