@@ -48,10 +48,10 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     borderWidth: 2,
     borderColor: 'rgba(255, 255, 255, 0.25)',
-    paddingVertical: spacing.lg,
+    paddingVertical: spacing.md,
     overflow: 'hidden',
     justifyContent: 'space-between',
-    marginBottom: spacing.lg,
+    marginBottom: spacing.sm,
   },
 
   row: {

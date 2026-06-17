@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { Player } from '../types/player';
+import { getAddBlockReason } from '../utils/squadRules';
 
 type SquadStore = {
   squad: Player[];
@@ -19,6 +20,10 @@ export const useSquadStore = create<SquadStore>()(
           const exists = state.squad.find((p) => p.id === player.id);
 
           if (exists) {
+            return state;
+          }
+
+          if (getAddBlockReason(state.squad, player) !== null) {
             return state;
           }
 

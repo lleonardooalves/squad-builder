@@ -3,6 +3,7 @@ import { radius } from '@/src/theme/radius';
 import { spacing } from '@/src/theme/spacing';
 import { typography } from '@/src/theme/typography';
 import { Player } from '@/src/types/player';
+import { getAddBlockReason } from '@/src/utils/squadRules';
 import { Ionicons } from '@expo/vector-icons';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { PlayerCard } from './PlayerCard';
@@ -31,11 +32,14 @@ export default function PlayersList({
       renderItem={({ item }) => {
         const isAdded = squad?.some((player) => player.id === item.id) ?? false;
         const isFavorite = favorites?.some((player) => player.id === item.id) ?? false;
+        const blockReason = squad ? getAddBlockReason(squad, item) : null;
         return (
           <PlayerCard
             player={item}
             onAdd={onAddPlayer}
             isAdded={isAdded}
+            addDisabled={blockReason !== null}
+            addDisabledReason={blockReason ?? undefined}
             onRemove={onRemovePlayer}
             onFavoriteToggle={onFavoriteToggle}
             isFavorite={isFavorite}

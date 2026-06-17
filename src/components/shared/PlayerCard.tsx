@@ -15,6 +15,8 @@ type PlayerCardProps = {
   onAdd?: (player: Player) => void;
   onRemove?: (id: string) => void;
   isAdded?: boolean;
+  addDisabled?: boolean;
+  addDisabledReason?: string;
   isFavorite?: boolean;
   onFavoriteToggle?: (player: Player) => void;
 };
@@ -24,6 +26,8 @@ export function PlayerCard({
   onAdd,
   onRemove,
   isAdded = false,
+  addDisabled = false,
+  addDisabledReason,
   isFavorite = false,
   onFavoriteToggle,
 }: PlayerCardProps) {
@@ -97,12 +101,14 @@ export function PlayerCard({
               {onAdd && (
                 <MotiView animate={{ scale: isAdded ? 0.95 : 1 }}>
                   <TouchableOpacity
-                    style={[styles.button, isAdded && styles.buttonDisabled]}
+                    style={[styles.button, (isAdded || addDisabled) && styles.buttonDisabled]}
                     onPress={() => onAdd(player)}
-                    disabled={isAdded}
+                    disabled={isAdded || addDisabled}
                     activeOpacity={0.8}
                   >
-                    <Text style={styles.buttonText}>{isAdded ? 'Added' : 'Add'}</Text>
+                    <Text style={styles.buttonText}>
+                      {isAdded ? 'Added' : addDisabled ? addDisabledReason : 'Add'}
+                    </Text>
                   </TouchableOpacity>
                 </MotiView>
               )}
