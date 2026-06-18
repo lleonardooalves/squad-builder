@@ -25,7 +25,7 @@ export default function FieldPlayer({ player }: FieldPlayerProps) {
       transition={{ type: 'spring' }}
     >
       <TouchableOpacity
-        style={styles.token}
+        style={styles.slot}
         activeOpacity={0.8}
         onPress={() =>
           router.push({
@@ -65,7 +65,7 @@ export default function FieldPlayer({ player }: FieldPlayerProps) {
 const AVATAR_SIZE = 52;
 
 const styles = StyleSheet.create({
-  token: {
+  slot: {
     alignItems: 'center',
     width: 70,
     marginEnd: spacing.sm,
