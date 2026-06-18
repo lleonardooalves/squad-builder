@@ -1,20 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { radius } from '../../theme/radius';
 import { spacing } from '../../theme/spacing';
-import { typography } from '../../theme/typography';
 import { Player, PlayerPosition } from '../../types/player';
+import { POSITION_LIMITS } from '../../utils/squadRules';
+import EmptySlot from './EmptySlot';
 import FieldPlayer from './FieldPlayer';
 
 type FieldProps = {
   squad: Player[];
 };
 
-const ROWS: { position: PlayerPosition; label: string }[] = [
-  { position: 'ATT', label: 'Attack' },
-  { position: 'MID', label: 'Midfield' },
-  { position: 'DEF', label: 'Defense' },
-  { position: 'GK', label: 'Goalkeeper' },
-];
+const ROWS: PlayerPosition[] = ['ATT', 'MID', 'DEF', 'GK'];
 
 export default function Field({ squad }: FieldProps) {
   return (
@@ -24,16 +20,19 @@ export default function Field({ squad }: FieldProps) {
       <View style={[styles.penaltyBox, styles.penaltyBoxTop]} />
       <View style={[styles.penaltyBox, styles.penaltyBoxBottom]} />
 
-      {ROWS.map(({ position, label }) => {
+      {ROWS.map((position) => {
         const players = squad.filter((player) => player.position === position);
+        const emptyCount = Math.max(0, POSITION_LIMITS[position] - players.length);
 
         return (
           <View key={position} style={styles.row}>
-            {players.length === 0 ? (
-              <Text style={styles.emptyRow}>{label}</Text>
-            ) : (
-              players.map((player) => <FieldPlayer key={player.id} player={player} />)
-            )}
+            {players.map((player) => (
+              <FieldPlayer key={player.id} player={player} />
+            ))}
+
+            {Array.from({ length: emptyCount }).map((_, index) => (
+              <EmptySlot key={`${position}-empty-${index}`} position={position} />
+            ))}
           </View>
         );
       })}
@@ -61,14 +60,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.sm,
     minHeight: 80,
-  },
-
-  emptyRow: {
-    ...typography.caption,
-    color: 'rgba(255, 255, 255, 0.5)',
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    letterSpacing: 1,
   },
 
   centerLine: {
