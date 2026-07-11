@@ -1,9 +1,11 @@
 import AttributeRow from '@/src/components/player/AttributeRow';
-import { mockPlayers } from '@/src/data/mockPlayers';
+import LoadingScreen from '@/src/components/shared/LoadingScreen';
+import { getPlayerById } from '@/src/services/players';
 import { colors } from '@/src/theme/colors';
 import { radius } from '@/src/theme/radius';
 import { spacing } from '@/src/theme/spacing';
 import { typography } from '@/src/theme/typography';
+import { Player } from '@/src/types/player';
 import { getOverallStyle } from '@/src/utils/getOverallStyle';
 import { getPlayerFormInfo, getPlayerFormModifier } from '@/src/utils/getPlayerForm';
 import { Ionicons } from '@expo/vector-icons';
@@ -15,13 +17,21 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function PlayerScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const player = mockPlayers.find((item) => item.id === id);
-
+  const [player, setPlayer] = useState<Player | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
-    setImageError(false);
+    setIsLoading(true);
+    getPlayerById(id)
+      .then((data) => setPlayer(data))
+      .catch((error) => console.error(error))
+      .finally(() => setIsLoading(false));
   }, [id]);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   if (!player) {
     return (

@@ -1,12 +1,13 @@
+import { getPlayers } from '@/src/services/players';
 import { useSquadStore } from '@/src/stores/squadStore';
-import { useState } from 'react';
-import { mockPlayers } from '../../data/mockPlayers';
+import { useEffect, useState } from 'react';
 import { Player } from '../../types/player';
 import { useDebounce } from './useDebounce';
 import { useFavorites } from './useFavorites';
 
 export function useHome() {
-  const [players] = useState<Player[]>(mockPlayers);
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const squad = useSquadStore((state) => state.squad);
   const addPlayer = useSquadStore((state) => state.addPlayer);
@@ -28,6 +29,13 @@ export function useHome() {
 
   const { favorites, onToggleFavorite } = useFavorites();
 
+  useEffect(() => {
+    getPlayers()
+      .then((data) => setPlayers(data))
+      .catch((error) => console.error(error))
+      .finally(() => setIsLoading(false));
+  }, []);
+
   return {
     players,
     squad,
@@ -42,5 +50,6 @@ export function useHome() {
     onToggleFavorite,
     searchText,
     setSearchText,
+    isLoading,
   };
 }

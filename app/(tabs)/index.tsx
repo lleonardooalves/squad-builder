@@ -2,6 +2,7 @@ import CurrentSquadCard from '@/src/components/home/CurrentSquad';
 import HomeHeader from '@/src/components/home/HomeHeader';
 import PlayersFilter from '@/src/components/home/PlayersFilter';
 import SearchBar from '@/src/components/home/SearchBar';
+import LoadingScreen from '@/src/components/shared/LoadingScreen';
 import PlayersList from '@/src/components/shared/PlayersList';
 import { useHome } from '@/src/hooks/screens/useHome';
 import { colors } from '@/src/theme/colors';
@@ -23,7 +24,12 @@ export default function HomeScreen() {
     onToggleFavorite,
     searchText,
     setSearchText,
+    isLoading,
   } = useHome();
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <MotiView
