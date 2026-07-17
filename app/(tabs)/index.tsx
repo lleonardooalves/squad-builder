@@ -5,13 +5,16 @@ import SearchBar from '@/src/components/home/SearchBar';
 import LoadingScreen from '@/src/components/shared/LoadingScreen';
 import PlayersList from '@/src/components/shared/PlayersList';
 import { useHome } from '@/src/hooks/screens/useHome';
+import { useAuthStore } from '@/src/stores/authStore';
 import { colors } from '@/src/theme/colors';
 import { spacing } from '@/src/theme/spacing';
 import { MotiView } from 'moti';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
+  const logout = useAuthStore((state) => state.logout);
+
   const {
     handleAddPlayer,
     squad,
@@ -41,6 +44,9 @@ export default function HomeScreen() {
       <SafeAreaView style={styles.safeArea} edges={['top']}>
         <View style={styles.container}>
           <HomeHeader />
+          <TouchableOpacity onPress={logout}>
+            <Text style={{ color: colors.text }}>Sair</Text>
+          </TouchableOpacity>
           <CurrentSquadCard totalPlayers={totalPlayers} totalPriceSquad={totalPriceSquad} />
           <SearchBar searchText={searchText} onSearchChange={setSearchText} />
           <PlayersFilter
