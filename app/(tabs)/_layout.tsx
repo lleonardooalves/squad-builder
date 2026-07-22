@@ -1,8 +1,15 @@
+import { useAuthStore } from '@/src/stores/authStore';
 import { colors } from '@/src/theme/colors';
 import { Ionicons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 
 export default function TabsLayout() {
+  const token = useAuthStore((state) => state.token);
+
+  if (!token) {
+    return <Redirect href="/login" />;
+  }
+
   return (
     <Tabs
       screenOptions={{
