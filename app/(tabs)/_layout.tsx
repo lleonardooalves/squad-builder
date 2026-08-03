@@ -1,10 +1,21 @@
 import { useAuthStore } from '@/src/stores/authStore';
+import { useFavoritesStore } from '@/src/stores/favoritesStore';
+import { useSquadStore } from '@/src/stores/squadStore';
 import { colors } from '@/src/theme/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { Redirect, Tabs } from 'expo-router';
+import { useEffect } from 'react';
 
 export default function TabsLayout() {
   const token = useAuthStore((state) => state.token);
+  const loadFavorites = useFavoritesStore((state) => state.loadFavorites);
+  const loadSquad = useSquadStore((state) => state.loadSquad);
+
+  useEffect(() => {
+    if (!token) return;
+    void loadFavorites();
+    void loadSquad();
+  }, [token, loadFavorites, loadSquad]);
 
   if (!token) {
     return <Redirect href="/login" />;

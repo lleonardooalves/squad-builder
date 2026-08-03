@@ -1,7 +1,9 @@
 import Constants from 'expo-constants';
 
-//Buscar o IP do localhost do computador para que o app consiga se conectar com a API
+// Se EXPO_PUBLIC_API_URL estiver definida, usa ela (produção).
+// Senão, cai no IP da máquina de dev (desenvolvimento local).
+const productionUrl = process.env.EXPO_PUBLIC_API_URL;
 const debuggerHost = Constants.expoConfig?.hostUri;
-const host = debuggerHost?.split(':')[0] ?? 'localhost';
+const localHost = debuggerHost?.split(':')[0] ?? 'localhost';
 
-export const API_URL = `http://${host}:3000`;
+export const API_URL = productionUrl ?? `http://${localHost}:3000`;

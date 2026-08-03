@@ -1,48 +1,65 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { addSquadPlayer, clearSquadRequest, getSquad, removeSquadPlayer } from '../services/squad';
 import { Player } from '../types/player';
 import { getAddBlockReason } from '../utils/squadRules';
 
 type SquadStore = {
   squad: Player[];
-  addPlayer: (player: Player) => void;
-  removePlayer: (id: string) => void;
-  clearSquad: () => void;
+  isLoading: boolean;
+  loadSquad: () => Promise<void>;
+  addPlayer: (player: Player) => Promise<void>;
+  removePlayer: (id: string) => Promise<void>;
+  clearSquad: () => Promise<void>;
+  resetSquad: () => void;
 };
 
-export const useSquadStore = create<SquadStore>()(
-  persist(
-    (set) => ({
-      squad: [],
-      addPlayer: (player) =>
-        set((state) => {
-          const exists = state.squad.find((p) => p.id === player.id);
+export const useSquadStore = create<SquadStore>()((set, get) => ({
+  squad: [],
+  isLoading: false,
 
-          if (exists) {
-            return state;
-          }
+  loadSquad: async () => {
+    set({ isLoading: true });
+    try {
+      const squad = await getSquad();
+      set({ squad });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 
-          if (getAddBlockReason(state.squad, player) !== null) {
-            return state;
-          }
+  addPlayer: async (player) => {
+    const squad = get().squad;
 
-          return {
-            squad: [...state.squad, player],
-          };
-        }),
-      removePlayer: (id) =>
-        set((state) => ({
-          squad: state.squad.filter((p) => p.id !== id),
-        })),
-      clearSquad: () =>
-        set(() => ({
-          squad: [],
-        })),
-    }),
-    {
-      name: 'squad-storage',
-      storage: createJSONStorage(() => AsyncStorage),
-    },
-  ),
-);
+    if (squad.some((p) => p.id === player.id)) return;
+    if (getAddBlockReason(squad, player) !== null) return;
+
+    try {
+      await addSquadPlayer(player.id);
+      set((state) => ({ squad: [...state.squad, player] }));
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  removePlayer: async (id) => {
+    try {
+      await removeSquadPlayer(id);
+      set((state) => ({ squad: state.squad.filter((p) => p.id !== id) }));
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  clearSquad: async () => {
+    try {
+      await clearSquadRequest();
+      set({ squad: [] });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  resetSquad: () => set({ squad: [] }),
+}));
