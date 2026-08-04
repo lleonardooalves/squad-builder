@@ -1,35 +1,47 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { addFavorite, getFavorites, removeFavorite } from '../services/favorites';
 import { Player } from '../types/player';
 
 type FavoritesStore = {
   favorites: Player[];
-  toggleFavorite: (player: Player) => void;
+  toggleFavorite: (player: Player) => Promise<void>;
+  isLoading: boolean;
+  loadFavorites: () => Promise<void>;
+  resetFavorites: () => void;
 };
 
-export const useFavoritesStore = create<FavoritesStore>()(
-  persist(
-    (set) => ({
-      favorites: [],
-      toggleFavorite: (player) =>
-        set((state) => {
-          const exists = state.favorites.find((p) => p.id === player.id);
+export const useFavoritesStore = create<FavoritesStore>()((set, get) => ({
+  favorites: [],
+  isLoading: false,
 
-          if (exists) {
-            return {
-              favorites: state.favorites.filter((p) => p.id !== player.id),
-            };
-          }
+  loadFavorites: async () => {
+    set({ isLoading: true });
+    try {
+      const favorites = await getFavorites();
+      set({ favorites });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 
-          return {
-            favorites: [...state.favorites, player],
-          };
-        }),
-    }),
-    {
-      name: 'favorites-storage',
-      storage: createJSONStorage(() => AsyncStorage),
-    },
-  ),
-);
+  toggleFavorite: async (player) => {
+    const exists = get().favorites.some((p) => p.id === player.id);
+
+    try {
+      if (exists) {
+        await removeFavorite(player.id);
+        set((state) => ({
+          favorites: state.favorites.filter((p) => p.id !== player.id),
+        }));
+      } else {
+        await addFavorite(player.id);
+        set((state) => ({ favorites: [...state.favorites, player] }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  resetFavorites: () => set({ favorites: [] }),
+}));
