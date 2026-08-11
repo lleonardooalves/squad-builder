@@ -18,7 +18,7 @@ export default function TabsLayout() {
   }, [token, loadFavorites, loadSquad]);
 
   if (!token) {
-    return <Redirect href="/login" />;
+    return <Redirect href="/auth/login" />;
   }
 
   return (
@@ -51,7 +51,6 @@ export default function TabsLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="squad"
         options={{
@@ -65,13 +64,21 @@ export default function TabsLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="favorites"
         options={{
           title: 'Favorites',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'star' : 'star-outline'} size={22} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'person' : 'person-outline'} size={22} color={color} />
           ),
         }}
       />

@@ -69,8 +69,9 @@ export default function PlayerScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.eyebrow}>SQUAD BUILDER</Text>
-
+          <Text style={styles.eyebrow}>
+            SQUAD <Text style={styles.titleAccent}>BUILDER</Text>
+          </Text>
           <TouchableOpacity
             style={styles.homeButton}
             onPress={() => router.navigate('/')}
@@ -340,5 +341,9 @@ const styles = StyleSheet.create({
     ...typography.title,
     color: colors.text,
     fontWeight: '800',
+  },
+
+  titleAccent: {
+    color: colors.rating,
   },
 });

@@ -6,7 +6,9 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function HomeHeader() {
   return (
     <View style={styles.header}>
-      <Text style={styles.eyebrow}>SQUAD BUILDER</Text>
+      <Text style={styles.eyebrow}>
+        SQUAD <Text style={styles.titleAccent}>BUILDER</Text>
+      </Text>
       <Text style={styles.title}>Available Players</Text>
       <Text style={styles.subtitle}>Build your dream team with the best players available</Text>
     </View>
@@ -37,5 +39,9 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.textSecondary,
     lineHeight: 20,
+  },
+
+  titleAccent: {
+    color: colors.rating,
   },
 });
