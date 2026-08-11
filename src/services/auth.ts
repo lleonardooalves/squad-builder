@@ -1,7 +1,7 @@
 import { API_URL } from '../config/api';
+import { User } from '../types/user';
 
 type AuthResponse = { access_token: string };
-type User = { id: string; email: string };
 
 export async function login(email: string, password: string): Promise<AuthResponse> {
   const response = await fetch(`${API_URL}/auth/login`, {

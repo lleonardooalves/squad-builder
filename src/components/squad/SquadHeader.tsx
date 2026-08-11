@@ -8,8 +8,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export default function SquadHeader() {
   return (
     <View style={styles.header}>
-      <Text style={styles.eyebrow}>SQUAD BUILDER</Text>
-
+      <Text style={styles.eyebrow}>
+        SQUAD <Text style={styles.titleAccent}>BUILDER</Text>
+      </Text>
       <View style={styles.titleRow}>
         <Text style={styles.title}>My Squad</Text>
 
@@ -68,5 +69,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+
+  titleAccent: {
+    color: colors.rating,
   },
 });

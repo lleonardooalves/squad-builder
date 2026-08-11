@@ -1,4 +1,4 @@
-import { getMe, login } from '@/src/services/auth';
+import { getMe, register } from '@/src/services/auth';
 import { useAuthStore } from '@/src/stores/authStore';
 import { colors } from '@/src/theme/colors';
 import { radius } from '@/src/theme/radius';
@@ -19,7 +19,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
   const setAuth = useAuthStore((state) => state.setAuth);
   const token = useAuthStore((state) => state.token);
 
@@ -27,21 +27,22 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [name, setName] = useState('');
 
   if (token) {
-    return <Redirect href="/" />;
+    return <Redirect href={'/'} />;
   }
 
-  async function handleLogin() {
+  async function handleRegister() {
     setError('');
     setIsLoading(true);
 
     try {
-      const { access_token } = await login(email, password);
+      const { access_token } = await register(email, password, name);
       const user = await getMe(access_token);
       setAuth(access_token, user);
     } catch {
-      setError('Email ou senha invalidos');
+      setError('Email já cadastrado');
     } finally {
       setIsLoading(false);
     }
@@ -60,14 +61,23 @@ export default function LoginScreen() {
           showsVerticalScrollIndicator={false}
         >
           <Image
-            source={require('../assets/images/logo.png')}
+            source={require('@/assets/images/logo.png')}
             style={styles.logo}
             resizeMode="contain"
           />
           <Text style={styles.title}>
             Squad <Text style={styles.titleAccent}>Builder</Text>
           </Text>
-          <Text style={styles.subtitle}>Entre na sua conta</Text>
+          <Text style={styles.subtitle}>Crie sua conta</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Nome"
+            placeholderTextColor={colors.textSecondary}
+            value={name}
+            onChangeText={setName}
+            autoCapitalize="words"
+            autoComplete="name"
+          />
           <TextInput
             style={styles.input}
             placeholder="Email"
@@ -89,20 +99,20 @@ export default function LoginScreen() {
           <TouchableOpacity
             activeOpacity={0.8}
             disabled={isLoading}
-            onPress={() => router.replace('/register')}
+            onPress={() => router.replace('/auth/login')}
           >
-            <Text style={styles.link}>Não tem uma conta? clique aqui</Text>
+            <Text style={styles.link}>Já tem uma conta? Entrar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={handleLogin}
+            onPress={handleRegister}
             activeOpacity={0.8}
             disabled={isLoading}
           >
             {isLoading ? (
               <ActivityIndicator color={colors.background} />
             ) : (
-              <Text style={styles.buttonText}>Entrar</Text>
+              <Text style={styles.buttonText}>Registrar</Text>
             )}
           </TouchableOpacity>
         </ScrollView>

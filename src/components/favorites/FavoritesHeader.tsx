@@ -8,8 +8,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export default function FavoritesHeader() {
   return (
     <View style={styles.header}>
-      <Text style={styles.eyebrow}>SQUAD BUILDER</Text>
-
+      <Text style={styles.eyebrow}>
+        SQUAD <Text style={styles.titleAccent}>BUILDER</Text>
+      </Text>
       <View style={styles.titleRow}>
         <Text style={styles.title}>My Favorite Players</Text>
 
@@ -68,5 +69,9 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  titleAccent: {
+    color: colors.rating,
   },
 });
