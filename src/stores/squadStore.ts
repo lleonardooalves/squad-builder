@@ -15,7 +15,7 @@ type SquadStore = {
 
 export const useSquadStore = create<SquadStore>()((set, get) => ({
   squad: [],
-  isLoading: false,
+  isLoading: true,
 
   loadSquad: async () => {
     set({ isLoading: true });
