@@ -1,3 +1,4 @@
+import LoadingScreen from '@/src/components/shared/LoadingScreen';
 import PlayersList from '@/src/components/shared/PlayersList';
 import EmptyCard from '@/src/components/squad/EmptyCard';
 import Field from '@/src/components/squad/Field';
@@ -12,8 +13,21 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SquadScreen() {
-  const { squad, removePlayer, totalPlayers, totalValue, isEmpty, clearSquad, view, setView } =
-    useSquad();
+  const {
+    squad,
+    removePlayer,
+    totalPlayers,
+    totalValue,
+    isEmpty,
+    clearSquad,
+    view,
+    setView,
+    isLoading,
+  } = useSquad();
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <MotiView

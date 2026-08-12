@@ -1,5 +1,6 @@
 import FavoritesEmptyCard from '@/src/components/favorites/FavoritesEmptyCard';
 import FavoritesHeader from '@/src/components/favorites/FavoritesHeader';
+import LoadingScreen from '@/src/components/shared/LoadingScreen';
 import PlayersList from '@/src/components/shared/PlayersList';
 import { useFavorites } from '@/src/hooks/screens/useFavorites';
 import { colors } from '@/src/theme/colors';
@@ -9,7 +10,11 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function FavoritesScreen() {
-  const { favorites, onToggleFavorite, isEmpty } = useFavorites();
+  const { favorites, onToggleFavorite, isEmpty, isLoading } = useFavorites();
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <MotiView

@@ -5,6 +5,7 @@ import { useState } from 'react';
 export function useSquad() {
   const squad = useSquadStore((state) => state.squad);
   const removePlayer = useSquadStore((state) => state.removePlayer);
+  const isLoading = useSquadStore((state) => state.isLoading);
 
   const totalPlayers = squad.length;
   const totalValue = squad.reduce((sum, player) => sum + player.price, 0);
@@ -24,5 +25,6 @@ export function useSquad() {
     clearSquad,
     view,
     setView,
+    isLoading,
   };
 }

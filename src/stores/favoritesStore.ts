@@ -12,7 +12,7 @@ type FavoritesStore = {
 
 export const useFavoritesStore = create<FavoritesStore>()((set, get) => ({
   favorites: [],
-  isLoading: false,
+  isLoading: true,
 
   loadFavorites: async () => {
     set({ isLoading: true });
