@@ -47,6 +47,8 @@ export default function ProfileScreen() {
               </View>
             )}
 
+            {user?.name && <Text style={styles.name}>{user.name}</Text>}
+
             <Text style={styles.label}>E-mail</Text>
             <Text style={styles.email}>{user?.email}</Text>
           </View>
@@ -160,5 +162,13 @@ const styles = StyleSheet.create({
     ...typography.caption,
     color: colors.warning,
     fontWeight: '700',
+  },
+
+  name: {
+    ...typography.title,
+    color: colors.text,
+    fontWeight: '800',
+    marginBottom: spacing.md,
+    textAlign: 'center',
   },
 });
